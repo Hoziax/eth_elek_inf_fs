@@ -1,0 +1,97 @@
+\section{Boolsche Algebra}
+\subsection{Grundregeln}
+\subsubsection{Kommutativität}
+\begin{align*}
+    A \land B &= B \land A\\
+    A \lor B &= B \lor A
+\end{align*}
+\subsubsection{Assoziativität}
+\begin{align*}
+    A \land (B \land C) &= A \land (B \land C)\\
+    A \lor (B \lor C) &= A \lor (B \lor C)\\
+\end{align*}
+\subsubsection{Distributivität}
+\begin{align*}
+    (\textcolor{blue}{A\,\land}~B)\,\textcolor{red}{\lor}\,(\textcolor{blue}{A\,\land}\,C) &= \textcolor{blue}{A\,\land}\,(B\,\textcolor{red}{\lor}\,C)\\
+    (\textcolor{blue}{A\,\lor}~B)\,\textcolor{red}{\land}\,(\textcolor{blue}{A\,\lor}\,C) &= \textcolor{blue}{A\,\lor}\,(B\,\textcolor{red}{\land}\,C)\\
+\end{align*}
+
+\begin{flushleft}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{l l l}
+        Nicht & $\overline{\overline{A}} = A$ & \\
+        \hline
+        Null-Th. & $A \lor 0 = A$ & $A \land 0 = 0$\\
+        \hline
+        Eins-Th. & $A \lor 1 = 1$ & $A \land 1 = A$\\
+        \hline
+        Idempotenz & $A \lor A = A$ & $A \land A = A$\\
+        \hline
+        V. Komp. & $A \lor \overline{A} = 1$ & $A \land \overline{A} = 0$\\
+        \hline
+        Adsorp. & \multicolumn{2}{l}{$A \lor (\overline{A} \land B) = A \lor B$}\\
+        & \multicolumn{2}{l}{$A \land (\overline{A} \lor B) = A \land B$}\\
+        \hline
+        Adsorp. & \multicolumn{2}{l}{$A \lor (A \land B) = A$}\\
+        & \multicolumn{2}{l}{$A \land (A \lor B) = A$}\\
+        \hline
+        Nachbar.G. & \multicolumn{2}{l}{$(A \land B) \lor (\overline{A} \land B) = B$}\\
+        & \multicolumn{2}{l}{$(A \lor B) \land (\overline{A} \lor B) = B$}
+    \end{tabular}
+\end{flushleft}
+
+\subsection{De Morgan}
+\begin{flushleft}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{l l}
+        1. Regel & $\overline{A \land B} = \overline{A} \lor \overline{B}$\\
+        2. Regel & $\overline{A \lor B} = \overline{A} \land \overline{B}$\\
+    \end{tabular}
+\end{flushleft}
+Regeln gelten auch für $n$ verknüpfte Terme.
+
+\subsection{Normalformen}
+\begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{p{30mm} | p{30mm}}
+        \textbf{Minterm} & \textbf{Maxterm}\\
+        \hline
+        AND-Ausdruck & OR-Ausdruck\\
+        Output: 1 & Output: 0\\ 
+        $n$ Schaltvar. $\rightarrow$ $2^n$ mögl. Minterme. & $n$ Schaltvar. $\rightarrow$ $2^n$ mögl. Maxterme.\\
+        nicht-invertierte Var: 1 & nicht-invertierte Var: 0\\
+        invertierte Var: 0 &invertierte Var: 0
+    \end{tabular}
+\end{center}
+\subsubsection{Disjunktive Normalform}
+\begin{enumerate}
+    \item Identifiziere WT-Zeilen mit Output 1
+    \item Minterme für diese Zeilen aufstellen
+    \item Minterme mit OR verknüpfen
+\end{enumerate}
+\subsubsection{Konjunktive Normalform}
+\begin{enumerate}
+    \item Identifiziere WT-Zeilen mit Output 0
+    \item Maxterme für diese Zeilen aufstellen
+    \item Maxterme mit OR verknüpfen
+\end{enumerate}
+\begin{center}
+        \begin{tabular}{|c c|c|c|c|}
+            \hline
+            A & B & Y & Minterme & Maxterme\\
+            \hline
+            0 & 0 & 1 & $\overline{A} \land \overline{B}$ & \\
+            0 & 1 & 0 & & $A \lor \overline{B}$\\
+            1 & 0 & 0 & & $\overline{A} \lor B$\\
+            1 & 1 & 1 & $A \land B$ & \\
+            \hline
+        \end{tabular}
+\end{center}
+
+\begin{flushleft}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{l l l}
+        \textbf{DNF} & $Y = (\overline{A} \land \overline{B}) \lor (A \land B)$ & {\tiny 1 Mint. erf. $\rightarrow~1$}\\
+        \textbf{KNF} & $Y = (A \lor \overline{B}) \land (\overline{A} \lor B)$ & {\tiny 1 Maxt. erf. $\rightarrow~0$}\\
+    \end{tabular}
+\end{flushleft}

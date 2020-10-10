@@ -1,0 +1,24 @@
+\documentclass[a4paper, 8pt, landscape]{scrartcl}
+\usepackage{digitech_fs}
+
+
+
+\author{Andrej Scheuer}
+\title{Digitaltechnik}
+\subtitle{}
+
+
+\createtitlepagestyle
+\createmainpagestyle
+
+
+\begin{document}
+\begin{multicols*}{4}
+	\thispagestyle{TitlePageStyle}
+	\maketitle
+
+	\input{sections/gates.tex}
+	\input{sections/cmos.tex}
+	\input{sections/boolsche_algebra.tex}
+\end{multicols*}
+\end{document}
