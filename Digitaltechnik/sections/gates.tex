@@ -179,7 +179,7 @@
         \end{equation*}
         \begin{center}
             \begin{adjustbox}{width = 14mm}
-                \begin{tikzpicture}[circuit logic IEC]
+                \begin{tikzpicture}[circuit logic IEC, thick]
                     \node[nand gate] (nand) at (0,0) {};
                     \node[] (iA) at (-0.8, 0.4) {A};
                     \node[] (iB) at (-0.8, -0.4) {B};
@@ -199,7 +199,7 @@
         \end{equation*}
         \begin{center}
             \begin{adjustbox}{width = 14mm}
-                \begin{tikzpicture}[circuit logic IEC]
+                \begin{tikzpicture}[circuit logic IEC, thick]
                     \node[nor gate] (nor) at (0,0) {};
                     \node[] (iA) at (-0.8, 0.4) {A};
                     \node[] (iB) at (-0.8, -0.4) {B};
@@ -219,7 +219,7 @@
         \end{equation*}
         \begin{center}
             \begin{adjustbox}{width = 14mm}
-                \begin{tikzpicture}[circuit logic IEC]
+                \begin{tikzpicture}[circuit logic IEC, thick]
                     \node[xnor gate] (xnor) at (0,0) {};
                     \node[] (iA) at (-0.8, 0.4) {A};
                     \node[] (iB) at (-0.8, -0.4) {B};
@@ -239,7 +239,7 @@
         \end{equation*}
         \begin{center}
             \begin{adjustbox}{width = 14mm}
-                \begin{tikzpicture}[circuit logic IEC]
+                \begin{tikzpicture}[circuit logic IEC, thick]
                     \node[xor gate] (xor) at (0,0) {};
                     \node[] (iA) at (-0.8, 0.4) {A};
                     \node[] (iB) at (-0.8, -0.4) {B};
@@ -265,3 +265,37 @@
         \hline
     \end{tabular}
 \end{center}
+\subsubsection{XOR aus NAND}
+\begin{center}
+    \begin{minipage}{0.45\linewidth}
+        \begin{adjustbox}{width = 30mm}
+            \begin{tikzpicture}[circuit logic IEC, thick]
+                \matrix[column sep=5mm]{
+                    \node[] (iA) {A}; & & \node[nand gate] (upperNand) {}; & \\
+                    & \node[nand gate] (mNand1) {}; & & \node[nand gate] (mNand2) {}; & \node[] (oF) {F};\\
+                    \node[] (iB) {B}; & & \node[nand gate] (lowerNand) {}; & \\
+                };
+                \draw[] (iA) --++ (right:10mm) |- (upperNand.input 1);
+                \draw[] (iB) --++ (right:10mm) |- (lowerNand.input 2);
+                \draw[] (iA) --++ (right:5mm) |- (mNand1.input 1);
+                \draw[] (iB) --++ (right:5mm) |- (mNand1.input 2);
+                \draw[] (mNand1.output) --++ (right:2.5mm) |- (upperNand.input 2);
+                \draw[] (mNand1.output) --++ (right:2.5mm) |- (lowerNand.input 1);
+                \draw[] (upperNand.output) --++ (right:2.5mm) |- (mNand2.input 1);
+                \draw[] (lowerNand.output) --++ (right:2.5mm) |- (mNand2.input 2);
+                \draw[] (mNand2.output) -- (oF);
+                \node[right = 2.4mm of iA, circ] {}; 
+                \node[right = 2.4mm of iB, circ] {}; 
+                \node[right = 2mm of mNand1.output, circ] {}; 
+            \end{tikzpicture}
+        \end{adjustbox}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+        \textbf{XOR aus NOR:} Gleiches Schema wie NAND + 1 Inverter\\
+        \vspace{-2mm}\hrule\vspace{1mm}
+        \textbf{XNOR aus NAND:} Gleiches Schema wie \textit{XOR aus NOR}\\
+        \vspace{-2mm}\hrule\vspace{1mm}
+        \textbf{XNOR aus NOR:} Gleiches Schema wie \textit{XOR aus NAND}\\
+    \end{minipage}
+\end{center}
+{\tiny Es versteht sich natürlich, dass wenn von \glqq Gleichem Schema wie\dots\grqq{} gesprochen wird, die Gates trotzdem getauscht werden müssen.}
