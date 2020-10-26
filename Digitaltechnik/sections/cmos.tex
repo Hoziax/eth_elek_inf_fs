@@ -125,8 +125,9 @@ Regeln für CMOS-Schaltungen
 \includegraphics[width = 68mm]{images/pnmosconv.png}
 \subsubsection{Funktionsgleichung}
 \begin{flushleft}
-    \begin{tabular}{l l l}
-        PMOS & Parallel $\rightarrow$ NAND & Serie $\rightarrow$ NOR\\
-        NMOS & Parallel $\rightarrow$ NOR & Serie $\rightarrow$ NAND\\
+    \small
+    \begin{tabular}{l|l l}
+        parallel: $\lor$ & Pull-Up: $y=1$ & $\text{alle I}: 0 \rightarrow \text{I invert.}$\\
+        Serie: $\land$ & Pull-Down: $y=0$ & $\text{alle I}: 1 \rightarrow \text{Gl. invert.}$\\
     \end{tabular}
 \end{flushleft}
