@@ -32,7 +32,7 @@
     \end{minipage}
     \begin{minipage}[t]{0.45\linewidth}
         \subsubsection{NAND}
-        \includegraphics[width = 30mm]{images/nand.png}
+        \includegraphics[height = 25mm]{images/nand.png}
     \end{minipage}
     \begin{minipage}[t]{0.45\linewidth}
         \subsubsection{AND aus NOR}
@@ -88,7 +88,7 @@
     \end{minipage}
     \begin{minipage}[t]{0.45\linewidth}
         \subsubsection{NOR}
-        \includegraphics[width = 30mm]{images/nor.png}
+        \includegraphics[height = 25mm]{images/nor.png}
     \end{minipage}
     \begin{minipage}[t]{0.45\linewidth}
         \subsubsection{OR aus NAND}
@@ -140,7 +140,7 @@
     \end{minipage}
     \hfill
     \begin{minipage}{0.3\linewidth}
-        \includegraphics[width = 20mm]{images/not.png}
+        \includegraphics[height = 20mm]{images/not.png}
     \end{minipage}
     \begin{minipage}{0.45\linewidth}
         \subsubsection{NOT aus NOR}
@@ -214,29 +214,9 @@
     \end{minipage}
     \hfill\vline\hfill
     \begin{minipage}{0.21\linewidth}
-        \subsubsection{XNOR}
-        \begin{equation*}
-            E = \overline{A \oplus B}
-        \end{equation*}
-        \begin{center}
-            \begin{adjustbox}{width = 14mm}
-                \begin{tikzpicture}[circuit logic IEC, thick]
-                    \node[xnor gate] (xnor) at (0,0) {};
-                    \node[] (iA) at (-0.8, 0.4) {A};
-                    \node[] (iB) at (-0.8, -0.4) {B};
-                    \node[] (oZ) at (0.8, 0) {E};
-                    \draw (iA.east) --++ (right:1.5mm) |- (xnor.input 1);
-                    \draw (iB.east) --++ (right:1.5mm) |- (xnor.input 2);
-                    \draw (xnor.output) -- (oZ);
-                \end{tikzpicture}
-            \end{adjustbox}
-        \end{center}
-    \end{minipage}
-    \hfill\vline\hfill
-    \begin{minipage}{0.21\linewidth}
         \subsubsection{XOR}
         \begin{equation*}
-            F = A \oplus B
+            E = A \oplus B
         \end{equation*}
         \begin{center}
             \begin{adjustbox}{width = 14mm}
@@ -244,10 +224,30 @@
                     \node[xor gate] (xor) at (0,0) {};
                     \node[] (iA) at (-0.8, 0.4) {A};
                     \node[] (iB) at (-0.8, -0.4) {B};
-                    \node[] (oZ) at (0.8, 0) {F};
+                    \node[] (oZ) at (0.8, 0) {E};
                     \draw (iA.east) --++ (right:1.5mm) |- (xor.input 1);
                     \draw (iB.east) --++ (right:1.5mm) |- (xor.input 2);
                     \draw (xor.output) -- (oZ);
+                \end{tikzpicture}
+            \end{adjustbox}
+        \end{center}
+    \end{minipage}
+    \hfill\vline\hfill
+    \begin{minipage}{0.21\linewidth}
+        \subsubsection{XNOR}
+        \begin{equation*}
+            F = \overline{A \oplus B}
+        \end{equation*}
+        \begin{center}
+            \begin{adjustbox}{width = 14mm}
+                \begin{tikzpicture}[circuit logic IEC, thick]
+                    \node[xnor gate] (xnor) at (0,0) {};
+                    \node[] (iA) at (-0.8, 0.4) {A};
+                    \node[] (iB) at (-0.8, -0.4) {B};
+                    \node[] (oZ) at (0.8, 0) {F};
+                    \draw (iA.east) --++ (right:1.5mm) |- (xnor.input 1);
+                    \draw (iB.east) --++ (right:1.5mm) |- (xnor.input 2);
+                    \draw (xnor.output) -- (oZ);
                 \end{tikzpicture}
             \end{adjustbox}
         \end{center}
@@ -256,13 +256,13 @@
 \begin{center}
     \begin{tabular}{|c c|c|c|c|c|}
         \hline
-        & & \rotatebox{90}{\tiny NAND} & \rotatebox{90}{\tiny NOR}& \rotatebox{90}{\tiny XNOR} & \rotatebox{90}{\tiny XOR}\\
+        & & \rotatebox{90}{\tiny NAND} & \rotatebox{90}{\tiny NOR}& \rotatebox{90}{\tiny XOR} & \rotatebox{90}{\tiny XNOR}\\
         A & B & C & D & E & F\\
         \hline
-        0 & 0 & 1 & 1 & 1 & 0\\
-        0 & 1 & 1 & 0 & 0 & 1\\
-        1 & 0 & 1 & 0 & 0 & 1\\
-        1 & 1 & 0 & 0 & 1 & 0\\
+        0 & 0 & 1 & 1 & 0 & 1\\
+        0 & 1 & 1 & 0 & 1 & 0\\
+        1 & 0 & 1 & 0 & 1 & 0\\
+        1 & 1 & 0 & 0 & 0 & 1\\
         \hline
     \end{tabular}
 \end{center}

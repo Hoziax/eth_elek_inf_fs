@@ -1,0 +1,25 @@
+\section{Karnaugh Diagramme}
+\begin{center}
+    \begin{minipage}{0.45\linewidth}
+        \begin{tikzpicture}
+            \matrix (kv) [
+                matrix of nodes,
+                minimum width = 5mm,
+                minimum height = 5mm,
+                nodes in empty cells
+            ]{
+            \node[fill = blue] (r1first) {}; & & & & &\\
+            \node[] (r2first) {}; & & & & &\\
+            \node[] (r3first) {}; & & & & &\\
+            \node[] (r4first) {}; & & & & &\\
+            \node[] (r5first) {}; & & & & &\\
+            };
+            \foreach \row in {1, 2, 3, 4, 5} {
+                \draw[] ($(kv-\row-1.base west) + (-5mm, 2.5mm)$) -- ($(kv-\row-6.base east) + (-5mm, 2.5mm)$);
+            }
+            \foreach \col in {2, 3, 4, 5, 6} {
+                \draw[] ($(kv-1-\col.base west) - (5mm, 2.5mm)$) -- ($(kv-4-\col.base west) - (0, 2mm)$);
+            }
+        \end{tikzpicture}
+    \end{minipage}
+\end{center}
