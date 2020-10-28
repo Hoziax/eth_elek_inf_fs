@@ -1,25 +1,153 @@
-\section{Karnaugh Diagramme}
+\section{Karnaugh Diagramme (KVD)}
 \begin{center}
     \begin{minipage}{0.45\linewidth}
-        \begin{tikzpicture}
-            \matrix (kv) [
-                matrix of nodes,
-                minimum width = 5mm,
-                minimum height = 5mm,
-                nodes in empty cells
-            ]{
-            \node[fill = blue] (r1first) {}; & & & & &\\
-            \node[] (r2first) {}; & & & & &\\
-            \node[] (r3first) {}; & & & & &\\
-            \node[] (r4first) {}; & & & & &\\
-            \node[] (r5first) {}; & & & & &\\
-            };
-            \foreach \row in {1, 2, 3, 4, 5} {
-                \draw[] ($(kv-\row-1.base west) + (-5mm, 2.5mm)$) -- ($(kv-\row-6.base east) + (-5mm, 2.5mm)$);
-            }
-            \foreach \col in {2, 3, 4, 5, 6} {
-                \draw[] ($(kv-1-\col.base west) - (5mm, 2.5mm)$) -- ($(kv-4-\col.base west) - (0, 2mm)$);
-            }
-        \end{tikzpicture}
+        \begin{center}
+            \begin{tikzpicture}
+                \matrix (kv) [
+                    matrix of nodes,
+                    nodes in empty cells,
+                    column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+                    nodes = {
+                        rectangle, 
+                        draw = black,
+                        text width = 3mm,
+                        text height = 3mm,
+                        align = center
+                    }
+                ]{
+                $0$ & $1$ & $X$ &\\
+                & & &\\
+                & & &\\
+                & & &\\
+                };
+    
+                \path[draw, decorate, decoration=brace] (kv-1-1.north west) -- (kv-1-2.north east) node [midway, above] {A};
+                \path[draw, decorate, decoration=brace] (kv-1-3.north west) -- (kv-1-4.north east) node [midway, above] {$\overline{\text{A}}$};
+                \path[draw, decorate, decoration=brace] (kv-2-1.south west) -- (kv-1-1.north west) node [midway, left] {C};
+                \path[draw, decorate, decoration=brace] (kv-4-1.south west) -- (kv-3-1.north west) node [midway, left] {$\overline{\text{C}}$};
+                \path[draw, decorate, decoration=brace] (kv-2-4.north east) -- (kv-3-4.south east) node [midway, right] {D};
+                \path[draw, decorate, decoration=brace] (kv-1-4.north east) -- (kv-1-4.south east) node [midway, right] {$\overline{\text{D}}$};
+                \path[draw, decorate, decoration=brace] (kv-4-4.north east) -- (kv-4-4.south east) node [midway, right] {$\overline{\text{D}}$};
+                \path[draw, decorate, decoration=brace] (kv-4-3.south east) -- (kv-4-2.south west) node [midway, below] {$\overline{\text{B}}$};
+                \path[draw, decorate, decoration=brace] (kv-4-1.south east) -- (kv-4-1.south west) node [midway, below] {B};
+                \path[draw, decorate, decoration=brace] (kv-4-4.south east) -- (kv-4-4.south west) node [midway, below] {B};
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \matrix (kv) [
+                    matrix of nodes,
+                    nodes in empty cells,
+                    column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+                    nodes = {
+                        rectangle, 
+                        draw = black,
+                        text width = 3mm,
+                        text height = 3mm,
+                        align = center
+                    }
+                ]{
+                \node[kvbinhead] {}; & \node[kvbinhead] {00}; & \node[kvbinhead] {01}; & \node[kvbinhead, text = blue] {11}; & \node[kvbinhead] {10};\\
+                \node[kvbinhead] {00}; & $0$ & $1$ & $X$ &\\
+                \node[kvbinhead] {01}; & & & &\\
+                \node[kvbinhead, text = blue] {11}; & & & &\\
+                \node[kvbinhead] {01}; & & & &\\
+                };
+    
+                \node[] at ($(kv-1-1.north east) + (-4mm, 1.5mm)$) {\tiny AB};
+                \node[] at ($(kv-1-1.south west) + (-0.8mm, 3.5mm)$) {\tiny CD};
+                \draw[] ($(kv-1-1.north west) + (-2.2mm, 2.2mm)$) -- ($(kv-1-1.south east) + (-2.4mm, 2.4mm)$);
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+\end{center}
+{\small Hat das Karnaugh Diagramm 5 Dimensionen, wird die 5te Dimension auf zwei Tabellen aufgeteilt.}
+\paragraph{Don't-Care-Zustände} \emph{\textcolor{red}{$X \in \{0,1\}$}}
+Redundante, überflüssige oder unmögliche Kombinationen der Eingangsvariablen werden mit einem \emph{$X$} markiert.
+
+\paragraph{Päckchen}
+\begin{itemize}
+    \item Päckchen immer rechteckig (Ausnahme: über Ecken).
+    \item Umfassen möglichst grosse Zweierpotenz.
+    \item Dürfen über Ecken und Grenzen hinausgehen und sich überlappen.
+\end{itemize}
+
+\begin{center}
+    \begin{minipage}{0.48\linewidth}
+        \subsubsection{DNF}
+        \begin{enumerate}
+            \item KVD ausfüllen.
+            \item Päckchen mit \emph{$1$} uo $X$.
+            \item Vereinfachte Minterme aufstellen.
+            \item Minterme mit OR verbinden.
+        \end{enumerate}
+    \end{minipage}
+    \hfill\vline\hfill
+    \begin{minipage}{0.48\linewidth}
+        \subsubsection{KNF}
+        \begin{enumerate}
+            \item KVD ausfüllen.
+            \item Päckchen mit \emph{$0$} uo $X$.
+            \item Vereinfachte Maxterme aufstellen.
+            \item Maxterme mit AND verbinden.
+        \end{enumerate}
+    \end{minipage}
+\end{center}
+
+\subsection{Hazard}
+Kurzzeitige, unerwünschte Änderung der Signalwerte, die durch Zeitverzögerung der Gatter entstehen.
+\begin{center}
+    \begin{minipage}{0.38\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{pgfonlayer}{bg}
+                    \def\ppad{1.5pt}
+                    \matrix (kv) [
+                        matrix of nodes,
+                        nodes in empty cells,
+                        column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+                        nodes = {
+                            rectangle, 
+                            draw = black,
+                            text width = 3mm,
+                            text height = 3mm,
+                            align = center
+                        }
+                    ]{
+                    \node[kvbinhead] {}; & \node[kvbinhead] {00}; & \node[kvbinhead] {01}; & \node[kvbinhead] {11}; & \node[kvbinhead] {10};\\
+                    \node[kvbinhead] {00}; & 0 & 1& 1 & 0\\
+                    \node[kvbinhead] {01}; & 0 & 1& 1 & 0\\
+                    \node[kvbinhead] {11}; & 1 & 1& 0 & 0\\
+                    \node[kvbinhead] {01}; & 1 & 1& 0 & 0\\
+                    };
+        
+                    \node[] at ($(kv-1-1.north east) + (-4mm, 1.5mm)$) {\tiny AB};
+                    \node[] at ($(kv-1-1.south west) + (-0.8mm, 3.5mm)$) {\tiny CD};
+                    \draw[] ($(kv-1-1.north west) + (-2.2mm, 2.2mm)$) -- ($(kv-1-1.south east) + (-2.4mm, 2.4mm)$);
+                \end{pgfonlayer}
+
+                \draw[blue] ($(kv-2-3.north west) + (1.5pt, -1.5pt)$) rectangle ($(kv-3-4.south east) + (-1.5pt, 1.5pt)$);
+                \draw[blue] ($(kv-4-2.north west) + (1.5pt, -1.5pt)$) rectangle ($(kv-5-3.south east) + (-1.5pt, 1.5pt)$);
+                \draw[darkgreen, thick, dashed] ($(kv-2-3.north west) + (1.5pt, -1.5pt)$) rectangle ($(kv-5-3.south east) + (-1.5pt, 1.5pt)$);
+
+                \begin{pgfonlayer}{tl3}
+                    \path[draw, <->, > = stealth, red] ($(kv-3-3.center) + (2pt, 0)$) to[in=45, out = -45] ($(kv-4-3.center) + (2pt, 0)$); 
+                    \path[draw, <-, > = stealth, red] ($(kv-5-3.center) + (2pt, 0)$) to[in=90, out = -45] ($(kv-5-3.center) + (5pt, -3mm)$);
+                    \path[draw, <-, > = stealth, red] ($(kv-2-3.center) + (2pt, 0)$) to[in=270, out = 45] ($(kv-2-3.center) + (5pt, 3mm)$);
+                \end{pgfonlayer}
+                \begin{pgfonlayer}{tl2}
+                    \node[text = red, fill = white, fill opacity = 0.8, text opacity = 1, rounded corners = 4pt] at ($(kv-3-3.south east) + (2mm, 0mm)$) {\tiny Hazard};
+                    \node[text = red, fill = white, fill opacity = 0.8, text opacity = 1, rounded corners = 4pt] at ($(kv-5-3.south east) + (2mm, 0mm)$) {\tiny Hazard};
+                \end{pgfonlayer}
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.55\linewidth}
+        \paragraph{Statische Hazards} Stellen im KVD, an denen sich Päckchen orthogonal berühren, aber nicht überlappen.
+        \paragraph{Lösung} Berührende \textcolor{blue}{Päckchen} mit zusätzlichen (möglichst grossen) \textcolor{darkgreen}{Päckchen} verbinden.
     \end{minipage}
 \end{center}
