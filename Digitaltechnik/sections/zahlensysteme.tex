@@ -1,0 +1,67 @@
+\section{Zahlensysteme}
+\begin{center}
+    \begin{minipage}{0.65\linewidth}
+        \begin{center}
+            \begin{tabular}{c l}
+                $D$ & zu berechnende positive Zahl\\
+                $R$ & Basis/Radix von $D$\\
+                $b_i$ & Koeffizient
+            \end{tabular}
+        \end{center}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.3\linewidth}
+        \begin{equation*}
+            D = \sum_{-\infty}^{\infty} b_i \cdot R^i
+        \end{equation*}
+    \end{minipage}
+\end{center}
+Darstellung $D$ in Basis $R$: $\dots b_2 b_1 b_0 . b_{-1} b_{-2} \dots _{R}$
+\begin{flushleft}
+    \begin{tabular}{l c l}
+        Dezimal & $10$ & $b_i \in \{0, 1, \dots, 9\}$\\
+        Dual/Binär & $2$ & $b_i \in \{0, 1\}$\\
+        Oktal & $8$ & $b_i \in \{0, 1, \dots, 7\}$\\
+        Hexa & $16$ & $b_i \in \{0, 1, \dots, 9, A, \dots, F\}$\\
+    \end{tabular}
+\end{flushleft}
+
+\subsection{Umwandlung Zahlensysteme}
+\begin{enumerate}
+    \item Ganzzahlige Division mit R: $D/R = Q_0 + r_0$.
+    \item $$Q_i/R = Q_{i + 1} + r_{i + 1}$$ bis $Q_i = 0$.
+    \item Zahl ist Reste rückwärts abgelesen.
+\end{enumerate}
+\subsubsection{Für $1 > D \geq 0$}
+
+\subsection{Zweierkomplement}
+
+\subsubsection{Cheatsheet}
+\begin{center}
+    \begin{tabular}{c|c||c|c}
+        $\mathbb{B}$ & $\mathbb{Z}$ &$\mathbb{B}$ & $\mathbb{Z}$\\
+        \hline
+        $0000$ & $0$  & $1000$ & $-8$\\
+        $0001$ & $+1$ & $1001$ & $-7$\\ 
+        $0010$ & $+2$ & $1010$ & $-6$\\
+        $0011$ & $+3$ & $1011$ & $-5$\\ 
+        $0100$ & $+4$ & $1100$ & $-4$\\ 
+        $0101$ & $+5$ & $1101$ & $-3$\\
+        $0110$ & $+6$ & $1110$ & $-2$\\
+        $0111$ & $+7$ & $1111$ & $-1$\\
+    \end{tabular}
+\end{center}
+\begin{center}
+    \begin{tabular}{c|c||c|c}
+        $\mathbb{B}$ & $\mathbb{R}$ &$\mathbb{B}$ & $\mathbb{R}$\\
+        \hline
+        $0.000$ & $0$ & $1.000$ & $-1.0$\\
+        $0.001$ & $+ 0.125$ & $1.001$ & $-0.875$\\
+        $0.010$ & $+0.25$ & $1.010$ & $-0.75$\\
+        $0.011$ & $+0.375$ & $1.011$ & $-0.625$\\
+        $0.100$ & $+0.5$ & $1.100$ & $-0.5$\\
+        $0.101$ & $+0.625$ & $1.101$ & $-0.375$\\
+        $0.110$ & $+0.75$ & $1.110$ & $-0.25$\\
+        $0.111$ & $+0.875$ & $1.111$ & $-0.125$\\
+    \end{tabular}
+\end{center}
