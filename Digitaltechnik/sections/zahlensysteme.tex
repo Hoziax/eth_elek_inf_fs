@@ -153,3 +153,8 @@ Sign-Bit muss nur einmal vor dem $m$ codiert werden.
     \end{minipage}
 \end{center}
 \subsubsection{Division}
+\begin{enumerate}
+    \item Identifiziere Teil des Divident $>$ Divisor (Unterblock). Für jede Stelle, sodass Divident $<$ Divisor, 0 in Quotient.
+    \item Unterblock $-$ Divisor, 1 an Quotient anhängen, Rest behalten.
+    \item An das Resultat der Subtraktion Bits des Dividenten anhängen. Wiederholen bis Subtraktion 0 ergibt.
+\end{enumerate}
