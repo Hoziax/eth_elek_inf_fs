@@ -1,0 +1,198 @@
+\section{Latches und FlipFlops}
+\begin{center}
+    \begin{minipage}[t]{0.45\linewidth}
+        \paragraph{Kombinatorische Schaltung}
+        Output hängt von Inputs und Verknüpfungen ab.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\linewidth}
+        \paragraph{Sequentielle Schaltung}
+        Enthält Rückkopplungen, Outputs hängen von vorherigen Werten ab.
+    \end{minipage}
+\end{center}
+\hrule
+\begin{center}
+    \begin{minipage}[t]{0.45\linewidth}
+        \paragraph{Latch}
+        \emph{(Takt)\underline{zustand}gesteurte} Schaltung $\rightarrow$ Änderungen am Eingang können während der \emph{ganzen aktiven Taktphase} den Output beeinflussen.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\linewidth}
+        \paragraph{FlipFlops}
+        \emph{Takt\underline{flanken}gesteuerte} Schaltung $\rightarrow$ Input zum Zeitpunkt der Taktwechsels wird wirksam.
+    \end{minipage}
+\end{center}
+\subsection{Latches}
+Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störimpulsen} empfindlich, da bei $\text{T}=1$ jede Änderung übernommen wird.
+\subsubsection{SR-Latch}
+\begin{center}
+    \begin{minipage}[c]{0.4\linewidth}
+        \includegraphics[width = 23mm]{images/sr_latch.jpeg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.55\linewidth}
+        \includegraphics[width = 35mm]{images/sr_latch_cir.jpeg}
+    \end{minipage}
+\end{center}
+\begin{flushleft}
+    \begin{tabular}{l l c l}
+        \textbf{S} & Set & $\rightarrow$ & setzt $Q$ auf $1$\\
+        \textbf{R} & Reset & $\rightarrow$ & setzt $Q$ auf $0$\\
+    \end{tabular}
+\end{flushleft}
+\begin{equation*}
+    Q_{n + 1} = S \lor \left(Q_n \land \overline{R}\right)
+\end{equation*}
+\begin{center}
+    \begin{tabular}{c|c c|c l}
+        Fall & \textbf{S} & \textbf{R} & $Q_{n + 1}$ & \\
+        \cline{1-4}
+        1 & $0$ & $0$ & $Q_n$ & speichern\\        
+        2 & $0$ & $1$ & $0$ & zurücksetzten\\        
+        3 & $1$ & $0$ & $1$ & setzen\\        
+        4 & $1$ & $1$ & - & unzulässig\\        
+    \end{tabular}
+\end{center}
+\subsubsection{SRT-Latch}
+\begin{center}
+    \begin{minipage}[c]{0.4\linewidth}
+        \includegraphics[width = 23mm]{images/srt_latch.jpeg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.55\linewidth}
+        \includegraphics[width = 35mm]{images/srt_latch_cir.jpeg}
+    \end{minipage}
+\end{center}
+\begin{flushleft}
+    \begin{tabular}{c c c c c l}
+        T & & $\text{S}_{\text{int}}$ & $\text{R}_{\text{int}}$ & &\\
+        $0$ & $\rightarrow$ & $0$ & $0$ & $\rightarrow$ & Datenspeicherung\\
+        $1$ & $\rightarrow$ & S & R & $\rightarrow$ & Normales SR-Latch\\
+    \end{tabular}
+\end{flushleft}
+Änderungen werden nur übernommen, wenn T/CLK aktiv ist.
+
+\subsubsection{D-Latch}
+\begin{center}
+    \begin{minipage}[c]{0.4\linewidth}
+        \includegraphics[width = 23mm]{images/d_latch.jpeg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.55\linewidth}
+        \includegraphics[width = 35mm]{images/d_latch_cir.jpeg}
+    \end{minipage}
+\end{center}
+Bauelement, das Daten für die Periodendauer eines Taktes speichern kann.
+\begin{equation*}
+    Q_{n + 1} = \left(Q_n \land \overline{\text{T}}\right) \lor \left(\text{D} \land \text{T}\right)
+\end{equation*}
+\begin{flushleft}
+    \begin{tabular}{c c c l}
+        T & $Q_{n + 1}$ & & \\
+        $0$ & $Q_n$ & $\rightarrow$ & alter Ausgang gespeichert\\
+        $1$ & D & $\rightarrow$ & Input übernommen\\
+    \end{tabular}
+\end{flushleft}
+\begin{center}
+    \begin{tikzpicture}
+        \begin{pgfonlayer}{bg}
+            \fill[red!30] (0,0) rectangle (1, -0.5);
+            \fill[darkgreen!30] (1,0) rectangle (2, -0.5);
+        \end{pgfonlayer}
+        \draw[thick] (-1, -0.5) -- (0, -0.5) -- (0,0) -- (1, 0) -- (1, -0.5) -- (2, -0.5) -- (2,0) -- (3, 0);
+        \begin{pgfonlayer}{tl1}
+            \node[draw = red] (t1) at (-1, 0.5) {\small D-Latch transparent};
+            \node[draw = darkgreen] (t2) at (2.5, 0.5) {\small letzter Zustand gespeichert};
+        \end{pgfonlayer}
+        \draw[red] (t1) -- (0.5, 0);
+        \draw[darkgreen] (t2) -- (1.5, 0);
+    \end{tikzpicture}
+\end{center}
+
+\subsection{FlipFlops}
+\begin{center}
+    \begin{minipage}{0.45\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \draw[thick] (-0.75, 0) -- (0,0)
+                    (0,0.6) -- (0,-0.6)
+                    (0,0.25) -- (0.5,0) -- (0,-0.25);
+                \node[] at (1, 0) {CLK};
+            \end{tikzpicture}
+        \end{center}
+        Input beim Übergang von \emph{$0 \rightarrow 1$} von CLK wirksam.
+        \begin{center}
+            \begin{tikzpicture}
+                \draw (0,0) -- (0.5, 0) -- (0.5, 0.3) -- (1, 0.3) -- (1, 0) -- (1.5, 0) -- (1.5, 0.3) -- (2, 0.3) -- (2, 0) -- (2.5, 0);
+                \draw[very thick, red] (0.5, 0) -- (0.5, 0.3) (1.5, 0) -- (1.5, 0.3);
+                \node[] at (1.25, -0.5) {\small Positive Taktflanke};
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \draw[thick] (-0.75, 0) -- (0,0)
+                    (0,0.6) -- (0,-0.6)
+                    (0,0.25) -- (0.5,0) -- (0,-0.25);
+                \draw[thick, fill = white] (-0.1,0) circle [radius = 0.75mm];
+                \node[] at (1, 0) {CLK};
+            \end{tikzpicture}
+        \end{center}
+        Input beim Übergang von \emph{$1 \rightarrow 0$} von CLK wirksam.
+        \begin{center}
+            \begin{tikzpicture}
+                \draw (0,0) -- (0.5, 0) -- (0.5, 0.3) -- (1, 0.3) -- (1, 0) -- (1.5, 0) -- (1.5, 0.3) -- (2, 0.3) -- (2, 0) -- (2.5, 0);
+                \draw[very thick, blue] (1, 0.3) -- (1, 0) (2, 0.3) -- (2, 0);
+                \node[] at (1.25, -0.5) {\small Negative Taktflanke};
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+\end{center}
+\subsubsection{D-FlipFlop}
+\begin{center}
+    \begin{minipage}[c]{0.4\linewidth}
+        \includegraphics[width = 23mm]{images/d_ff.jpeg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.55\linewidth}
+        \includegraphics[width = 35mm]{images/d_ff_cir.jpeg}
+    \end{minipage}
+\end{center}
+\begin{equation*}
+    Q_{n + 1} = \text{D} \quad \text{wenn} \quad \text{CLK}~0\rightarrow 1 
+\end{equation*}
+\begin{flushleft}
+    \begin{tabular}{l l l}
+        Master & low-active & $\text{CLK} = 0$\\
+        Slave & high-active & $\text{CLK} = 1$\\
+    \end{tabular}
+\end{flushleft}
+\subsubsection{SR-FlipFlop}
+\begin{center}
+    \begin{minipage}[c]{0.4\linewidth}
+        \includegraphics[width = 23mm]{images/srt_ff.jpeg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.55\linewidth}
+        \includegraphics[width = 35mm]{images/srt_ff_cir.jpeg}
+    \end{minipage}
+\end{center}
+\begin{equation*}
+    Q_{n + 1} = \text{S} \lor \left(\overline{\text{R}} \land Q_n\right) \quad \text{wenn} \quad \text{CLK}~0\rightarrow 1 
+\end{equation*}
+
+\subsubsection{Verzögerungszeiten}
+\begin{flushleft}
+    \small
+    \begin{tabular}{l l p{32mm}}
+        $t_s$ & Setup-Zeit & Solange muss Signal \underline{vor} aktiver Taktflanke stabil anliegen.\\
+        $t_h$ & Hold-Zeit & Solange muss Signal \underline{nach} aktiver Taktflanke stabil anliegen.\\
+        $t_{pd}$ & Verzögerungszeit & Durchlaufzeit
+    \end{tabular}
+\end{flushleft}
+\begin{equation*}
+    T_{\text{min}} \geq t_{\text{pd}1} + t_{\text{pd,ks}} + t_{\text{s}2} \qquad f_{\text{max}} = \frac{1}{T_{\text{min}}}
+\end{equation*}
+$t_h$ kann bei der Berechnung von $f_{\text{max}}$ vernachlässigt werden.
