@@ -60,6 +60,10 @@
 \definecolor{pastelaqua}{HTML}{709FB0}
 \definecolor{pastelviolet}{HTML}{726a95}
 
+\definecolor{primaryheader}{HTML}{30475e}
+\definecolor{secondaryheader}{HTML}{f1935c}
+\definecolor{thirdheader}{HTML}{ba6b57}
+
 \tikzset{
     circ/.style = {circle, fill = black, minimum size=1mm, inner sep=0pt, outer sep=0pt},
     point/.style = {circle, draw = black, thick, minimum size=1mm, inner sep=0pt, outer sep=0pt},
@@ -118,7 +122,9 @@
 \setlength{\columnseprule}{1pt}
 \def\columnseprulecolor{\color{black!20!white}}
 
-\titleformat{\section}{\sffamily\bfseries\boldmath\large}{}{0pt}{\colorbox{burntorange!90!black}{\parbox[c][3mm]{\linewidth - 6pt}{\textcolor{white}{#1}}}}
-\titleformat{\subsection}{\sffamily\bfseries\boldmath}{}{0pt}{\colorbox{burntorange!70!white}{\parbox[c][2mm]{\linewidth - 6pt}{#1}}}
-\titleformat{\subsubsection}{\sffamily\bfseries\boldmath}{}{0pt}{#1}
+\newcommand{\raisedrulefill}[2][0ex]{\leaders\hbox{\rule[#1]{1pt}{#2}}\hfill}
+
+\titleformat{\section}{\sffamily\bfseries\boldmath\large}{}{0pt}{\colorbox{primaryheader}{\parbox[c][3mm]{\linewidth - 6pt}{\textcolor{white}{#1}}}}
+\titleformat{\subsection}{\sffamily\bfseries\boldmath}{}{0pt}{\colorbox{secondaryheader}{\parbox[c][2mm]{\linewidth - 6pt}{#1}}}
+\titleformat{\subsubsection}{\sffamily\bfseries\boldmath}{}{0pt}{\textcolor{thirdheader}{#1 \raisedrulefill[0.4ex]{0.5pt}}}
 \titleformat{\paragraph}[runin]{\sffamily\bfseries\boldmath}{}{0pt}{\uline{#1}}
