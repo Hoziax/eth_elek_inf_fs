@@ -68,6 +68,94 @@
 \paragraph{Don't-Care-Zustände} \cemph{$X \in \{0,1\}$}
 Redundante, überflüssige oder unmögliche Kombinationen der Eingangsvariablen werden mit einem \emph{$X$} markiert.
 
+\paragraph{Schema zum Ausfüllen}
+\begin{center}
+    \small
+    \begin{minipage}{0.45\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \matrix (kv) [
+                    matrix of nodes,
+                    nodes in empty cells,
+                    column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+                    nodes = {
+                        rectangle, 
+                        draw = black,
+                        text width = 2.6mm,
+                        text height = 2.6mm,
+                        align = center,
+                        text = gray
+                    }
+                ]{
+                \node[kvbinhead] {}; & \node[kvbinhead] {00}; & \node[kvbinhead] {01}; & \node[kvbinhead] {11}; & \node[kvbinhead] {10};\\
+                \node[kvbinhead] {00}; & & & & \\
+                \node[kvbinhead] {01}; & & & & \\
+                \node[kvbinhead] {11}; & & & & \\
+                \node[kvbinhead] {01}; & & & & \\
+                };
+    
+                \node[] at ($(kv-1-1.north east) + (-4mm, 1.5mm)$) {\tiny CD};
+                \node[] at ($(kv-1-1.south west) + (-0.8mm, 3.5mm)$) {\tiny \cemph{AB}};
+                \draw[] ($(kv-1-1.north west) + (-1.2mm, 1.2mm)$) -- ($(kv-1-1.south east) + (-1.75mm, 1.75mm)$);
+
+                \begin{pgfonlayer}{tl3}
+                    \draw[thick, blue, ->, > = stealth] (kv-2-2.center) -- (kv-2-3.center) to[out = 90, in = 90] (kv-2-5.center) -- (kv-2-4.center);
+                    \draw[thick, blue, ->, > = stealth] (kv-3-2.center) -- (kv-3-3.center) to[out = 90, in = 90] (kv-3-5.center) -- (kv-3-4.center);
+                    \draw[thick, blue, ->, > = stealth] (kv-5-2.center) -- (kv-5-3.center) to[out = 90, in = 90] (kv-5-5.center) -- (kv-5-4.center);
+                    \draw[thick, blue, ->, > = stealth] (kv-4-2.center) -- (kv-4-3.center) to[out = 90, in = 90] (kv-4-5.center) -- (kv-4-4.center);
+                \end{pgfonlayer}
+                \begin{pgfonlayer}{tl2}
+                    \draw[thick, darkgreen, ->, > = stealth] (kv-2-4.center) -- (kv-3-2.center);
+                    \draw[thick, red, ->, > = stealth] (kv-3-4.center) -- (kv-5-2.center);
+                    \draw[thick, darkgreen, ->, > = stealth] (kv-5-4.center) -- (kv-4-2.center);
+                \end{pgfonlayer}
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \matrix (kv) [
+                    matrix of nodes,
+                    nodes in empty cells,
+                    column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+                    nodes = {
+                        rectangle, 
+                        draw = black,
+                        text width = 2.6mm,
+                        text height = 2.6mm,
+                        align = center,
+                        text = gray
+                    }
+                ]{
+                \node[kvbinhead] {}; & \node[kvbinhead] {00}; & \node[kvbinhead] {01}; & \node[kvbinhead] {11}; & \node[kvbinhead] {10};\\
+                \node[kvbinhead] {00}; & & & & \\
+                \node[kvbinhead] {01}; & & & & \\
+                \node[kvbinhead] {11}; & & & & \\
+                \node[kvbinhead] {01}; & & & & \\
+                };
+    
+                \node[] at ($(kv-1-1.north east) + (-4mm, 1.5mm)$) {\tiny \cemph{AB}};
+                \node[] at ($(kv-1-1.south west) + (-0.8mm, 3.5mm)$) {\tiny CD};
+                \draw[] ($(kv-1-1.north west) + (-1.2mm, 1.2mm)$) -- ($(kv-1-1.south east) + (-1.75mm, 1.75mm)$);
+
+                \begin{pgfonlayer}{tl3}
+                    \draw[thick, blue, ->, > = stealth] (kv-2-2.center) -- (kv-3-2.center) to[out = 180, in = 180] (kv-5-2.center) -- (kv-4-2.center);
+                    \draw[thick, blue, ->, > = stealth] (kv-2-3.center) -- (kv-3-3.center) to[out = 180, in = 180] (kv-5-3.center) -- (kv-4-3.center);
+                    \draw[thick, blue, ->, > = stealth] (kv-2-5.center) -- (kv-3-5.center) to[out = 180, in = 180] (kv-5-5.center) -- (kv-4-5.center);
+                    \draw[thick, blue, ->, > = stealth] (kv-2-4.center) -- (kv-3-4.center) to[out = 180, in = 180] (kv-5-4.center) -- (kv-4-4.center);
+                \end{pgfonlayer}
+                \begin{pgfonlayer}{tl2}
+                    \draw[thick, darkgreen, ->, > = stealth] (kv-4-2.center) -- (kv-2-3.center);
+                    \draw[thick, red, ->, > = stealth] (kv-4-3.center) -- (kv-2-5.center);
+                    \draw[thick, darkgreen, ->, > = stealth] (kv-4-5.center) -- (kv-2-4.center);
+                \end{pgfonlayer}
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+\end{center}
+
 \paragraph{Päckchen}
 \begin{itemize}
     \item Päckchen immer rechteckig (Ausnahme: über Ecken).
