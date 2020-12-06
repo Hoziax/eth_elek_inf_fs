@@ -358,7 +358,8 @@ TG sperrt wenn Widerstand hochohmig ist. ($\text{T}=0$)
 \begin{equation*}
     T_{\text{min}} \geq t_{\text{pd}1} + t_{\text{pd,ks}} + t_{\text{s}2} \qquad f_{\text{max}} = \frac{1}{T_{\text{min}}}
 \end{equation*}
-$t_h$ kann bei der Berechnung von $f_{\text{max}}$ vernachlässigt werden.
+$t_h$ kann bei der Berechnung von $f_{\text{max}}$ vernachlässigt werden.\\
+Es wird der längste PFad zwischen zwei FlipFlops betrachtet.
 
 \subsubsection{Zwischenspeicher-FF}
 \begin{center}
@@ -382,5 +383,5 @@ FlipFlop, dass Input bei steigender Taktflanke übernimmt und bei der nächsten 
 \begin{center}
     \includegraphics[width = 65mm]{images/counter.jpeg}
 \end{center}
-Kaskadeuren von T-Flipflops führt zu einer Frequenzreduktion von CLK um Faktor 2.\\
+Kaskadieren von T-Flipflops führt zu einer Frequenzreduktion von CLK um Faktor 2.\\
 Kann als Bitzähler verwendet werden (ohne CLK). MSB ist längste Frequenz. $n_{T,ff} \rightarrow 0\dots (2^n -1)$
