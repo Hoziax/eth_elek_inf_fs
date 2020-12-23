@@ -15,135 +15,157 @@ Bei synchronen Automaten besitzen alle Speicherelemente (FlipFlops) den gleichen
     \end{tabular}
 \end{flushleft}
 \subsection{Automatentypen}
-% \subsubsection{Mealy}
-% \begin{center}
-%     \begin{minipage}{0.38\linewidth}
-%         Ausgänge von inneren Zuständen \underline{und} Eingängen abhängig.
-%         \begin{equation*}
-%             Y_n = f_{c2}(X_n, Z_n)
-%         \end{equation*}
-%     \end{minipage}
-%     \hfill
-%     \begin{minipage}{0.6\linewidth}
-%         \begin{center}
-%             \begin{tikzpicture}[> = stealth, thick]
-%                 \def\ulA{174};
-%                 \def\mlA{180};
-%                 \def\llA{186};
-%                 \def\urA{6};
-%                 \def\mrA{0};
-%                 \def\lrA{-6};
-%                 \node[draw, text width = 16.8mm] (outputFunc) {\small $f_{c2}:(X_n, Z_n)$};
-%                 \node[draw, text width = 16.8mm, below = 2mm of outputFunc] (transFunc) {\small $f_{c1}:(X_n, Z_n)$};
-%                 \node[draw = blue, fill = blue!20, text width = 16.8mm, below = 2mm of transFunc, align = center] (store) {\small Speicher};
+\subsubsection{Mealy-Automat}
+\begin{center}
+    \begin{minipage}{0.38\linewidth}
+        Ausgänge von inneren Zuständen \underline{und} Eingängen abhängig.
+        \begin{equation*}
+            Y_n = f_{c2}(X_n, Z_n)
+        \end{equation*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.6\linewidth}
+        \begin{center}
+            \begin{tikzpicture}[> = stealth, thick]
+                \def\ulA{174};
+                \def\mlA{180};
+                \def\llA{186};
+                \def\urA{6};
+                \def\mrA{0};
+                \def\lrA{-6};
+                \node[draw, text width = 16.8mm] (outputFunc) {\small $f_{c2}:(X_n, Z_n)$};
+                \node[draw, text width = 16.8mm, below = 2mm of outputFunc] (transFunc) {\small $f_{c1}:(X_n, Z_n)$};
+                \node[draw = blue, fill = blue!20, text width = 16.8mm, below = 2mm of transFunc, align = center] (store) {\small Speicher};
 
-%                 \node[left = 4mm of store.\llA] (clk) {\small CLK};
-%                 \draw[->] (clk) -- (store.\llA);
+                \node[left = 4mm of store.\llA] (clk) {\small CLK};
+                \draw[->] (clk) -- (store.\llA);
                 
-%                 \path[draw, ->] (transFunc.\mrA) -- ($(transFunc.\mrA) + (0.2,0)$) -- ($(store.\mrA) + (0.2,0)$) node[midway, right] {$Z_{n+1}$} -- (store.\mrA);
+                \path[draw, ->] (transFunc.\mrA) -- ($(transFunc.\mrA) + (0.2,0)$) -- ($(store.\mrA) + (0.2,0)$) node[midway, right] {$Z_{n+1}$} -- (store.\mrA);
 
-%                 \path[draw, ->, blue] (store.\ulA) -- ($(store.\ulA) - (0.2,0)$) -- ($(transFunc.\llA) - (0.2,0)$) node[left, black] {$Z_n$} -- (transFunc.\llA); 
-%                 \path[draw, ->, blue] ($(transFunc.\llA) - (0.2,0)$) -- ($(outputFunc.\llA) - (0.2,0)$) -- (outputFunc.\llA);
+                \path[draw, ->, blue] (store.\ulA) -- ($(store.\ulA) - (0.2,0)$) node[left, black] {$Z_n$} -- ($(transFunc.\llA) - (0.2,0)$) -- (transFunc.\llA); 
+                \path[draw, ->, blue] ($(transFunc.\llA) - (0.2,0)$) -- ($(outputFunc.\llA) - (0.2,0)$) -- (outputFunc.\llA);
 
-%                 \node[left = 4mm of outputFunc.\ulA] (input) {\small $X_n$};
-%                 \path[draw, ->, red] (input) -- (outputFunc.\ulA);
-%                 \path[draw, ->, red] (input) -- ($(input) + (0.4, 0)$) |- (transFunc.\ulA);
+                \node[left = 4mm of outputFunc.\ulA] (input) {\small $X_n$};
+                \path[draw, ->, red] (input) -- (outputFunc.\ulA);
+                \path[draw, ->, red] (input) -- ($(input) + (0.4, 0)$) |- (transFunc.\ulA);
 
-%                 \node[right = 4mm of outputFunc.\urA] (output) {\small $Y_n$};
-%                 \draw[->] (outputFunc.\urA) -- (output);
-%             \end{tikzpicture}
-%         \end{center}
-%     \end{minipage}
-% \end{center}
-% \subsubsection{Moore}
-% \begin{center}
-%     \begin{minipage}{0.38\linewidth}
-%         Ausgänge nur von inneren Zuständen abhängig (keine Verbindung zwischen Input und Output).
-%         \begin{equation*}
-%             Y_n = f_{c2}(Z_n)
-%         \end{equation*}
-%     \end{minipage}
-%     \hfill
-%     \begin{minipage}{0.6\linewidth}
-%         \begin{center}
-%             \begin{tikzpicture}[> = stealth, thick]
-%                 \def\ulA{174};
-%                 \def\mlA{180};
-%                 \def\llA{186};
-%                 \def\urA{6};
-%                 \def\mrA{0};
-%                 \def\lrA{-6};
-%                 \node[text width = 16.8mm, align = center, draw] (outputFunc) {\small $f_{c2}:(Z_n)$};
-%                 \node[text width = 16.8mm, align = center, draw, below = 2mm of outputFunc] (transFunc) {\small $f_{c1}:(X_n, Z_n)$};
-%                 \node[text width = 16.8mm, align = center, draw = blue, fill = blue!20, below = 2mm of transFunc] (store) {\small Speicher};
+                \node[right = 4mm of outputFunc.\urA] (output) {\small $Y_n$};
+                \draw[->] (outputFunc.\urA) -- (output);
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+\end{center}
+\paragraph{Zustandsdiagram}
+\begin{center}
+    \begin{tikzpicture}[thick]
+        \node[state] (z0) at (0,0) {$Z_0$};
+        \node[state] (z1) at (3,0) {$Z_1$};
+        \path[->, > = stealth] (z0) edge node[above] {Input/Output} (z1)
+            (z1) edge[loop right] node{I/O} ();
+    \end{tikzpicture}
+\end{center}
+\subsubsection{Moore-Automat}
+\begin{center}
+    \begin{minipage}{0.38\linewidth}
+        Ausgänge nur von inneren Zuständen abhängig (keine Verbindung zwischen Input und Output).
+        \begin{equation*}
+            Y_n = f_{c2}(Z_n)
+        \end{equation*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.6\linewidth}
+        \begin{center}
+            \begin{tikzpicture}[> = stealth, thick]
+                \def\ulA{174};
+                \def\mlA{180};
+                \def\llA{186};
+                \def\urA{6};
+                \def\mrA{0};
+                \def\lrA{-6};
+                \node[text width = 16.8mm, align = center, draw] (outputFunc) {\small $f_{c2}:(Z_n)$};
+                \node[text width = 16.8mm, align = center, draw, below = 2mm of outputFunc] (transFunc) {\small $f_{c1}:(X_n, Z_n)$};
+                \node[text width = 16.8mm, align = center, draw = blue, fill = blue!20, below = 2mm of transFunc] (store) {\small Speicher};
 
-%                 \node[left = 4mm of store.\llA] (clk) {\small CLK};
-%                 \draw[->] (clk) -- (store.\llA);
+                \node[left = 4mm of store.\llA] (clk) {\small CLK};
+                \draw[->] (clk) -- (store.\llA);
                 
-%                 \path[draw, ->] (transFunc.\mrA) -- ($(transFunc.\mrA) + (0.2,0)$) -- ($(store.\mrA) + (0.2,0)$) node[midway, right] {$Z_{n+1}$} -- (store.\mrA);
+                \path[draw, ->] (transFunc.\mrA) -- ($(transFunc.\mrA) + (0.2,0)$) -- ($(store.\mrA) + (0.2,0)$) node[midway, right] {$Z_{n+1}$} -- (store.\mrA);
 
-%                 \path[draw, ->, blue] (store.\ulA) -- ($(store.\ulA) - (0.2,0)$) -- ($(transFunc.\llA) - (0.2,0)$) node[midway, left, black] {$Z_n$} -- (transFunc.\llA); 
-%                 \path[draw, ->, blue] ($(transFunc.\llA) - (0.2,0)$) -- ($(outputFunc.\llA) - (0.2,0)$) -- (outputFunc.\llA);
+                \path[draw, ->, blue] (store.\ulA) -- ($(store.\ulA) - (0.2,0)$) -- ($(transFunc.\llA) - (0.2,0)$) node[midway, left, black] {$Z_n$} -- (transFunc.\llA); 
+                \path[draw, ->, blue] ($(transFunc.\llA) - (0.2,0)$) -- ($(outputFunc.\llA) - (0.2,0)$) -- (outputFunc.\llA);
 
-%                 \node[left = 4mm of transFunc.\ulA] (input) {\small $X_n$};
-%                 \path[draw, ->, red] (input) -- (transFunc.\ulA);
+                \node[left = 4mm of transFunc.\ulA] (input) {\small $X_n$};
+                \path[draw, ->, red] (input) -- (transFunc.\ulA);
 
-%                 \node[right = 4mm of outputFunc.\urA] (output) {\small $Y_n$};
-%                 \draw[->] (outputFunc.\urA) -- (output);
-%             \end{tikzpicture}
-%         \end{center}
-%     \end{minipage}
-% \end{center}
-% \subsubsection{Medwedjew}
-% \begin{center}
-%     \begin{minipage}{0.38\linewidth}
-%         Ausgänge entsprechen inneren Zuständen.
-%         \begin{equation*}
-%             Y_n = Z_n
-%         \end{equation*}
-%     \end{minipage}
-%     \hfill
-%     \begin{minipage}{0.6\linewidth}
-%         \begin{center}
-%             \begin{tikzpicture}[> = stealth, thick]
-%                 \def\ulA{174};
-%                 \def\mlA{180};
-%                 \def\llA{186};
-%                 \def\urA{6};
-%                 \def\mrA{0};
-%                 \def\lrA{-6};
-%                 \node[text width = 16.8mm, align = center, draw, opacity = 0] (outputFunc) {\small $f_{c2}:(Z_n)$};
-%                 \node[text width = 16.8mm, align = center, draw, below = 2mm of outputFunc] (transFunc) {\small $f_{c1}:(X_n, Z_n)$};
-%                 \node[text width = 16.8mm, align = center, draw = blue, fill = blue!20, below = 2mm of transFunc] (store) {\small Speicher};
-%                 \node[right = 4mm of outputFunc.\urA] (output) {\small $Y_n$};
+                \node[right = 4mm of outputFunc.\urA] (output) {\small $Y_n$};
+                \draw[->] (outputFunc.\urA) -- (output);
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+\end{center}
+\paragraph{Zustandsdiagram}
+\begin{center}
+    \begin{tikzpicture}[thick]
+        \node[state with output] (z0) at (0,0) {$Z_0$ \nodepart{lower} $Y_0$};
+        \node[state  with output] (z1) at (3,0) {$Z_1$ \nodepart{lower} $Y_1$};
+        \path[->, > = stealth] (z0) edge node[above] {Input} (z1)
+            (z1) edge[loop right] node{I} ();
+    \end{tikzpicture}
+\end{center}
+\subsubsection{Medwedjew-Automat}
+\begin{center}
+    \begin{minipage}{0.38\linewidth}
+        Ausgänge entsprechen inneren Zuständen.
+        \begin{equation*}
+            Y_n = Z_n
+        \end{equation*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.6\linewidth}
+        \begin{center}
+            \begin{tikzpicture}[> = stealth, thick]
+                \def\ulA{174};
+                \def\mlA{180};
+                \def\llA{186};
+                \def\urA{6};
+                \def\mrA{0};
+                \def\lrA{-6};
 
-%                 \node[left = 4mm of store.\llA] (clk) {\small CLK};
-%                 \draw[->] (clk) -- (store.\llA);
+                \node[text width = 16.8mm, align = center, draw] (transFunc) {\small $f_{c1}:(X_n, Z_n)$};
+                \node[text width = 16.8mm, align = center, draw = blue, fill = blue!20, below = 2mm of transFunc] (store) {\small Speicher};
+                \node[above right = 1mm and 4mm of transFunc.\urA] (output) {\small $Y_n$};
+
+                \node[left = 4mm of store.\llA] (clk) {\small CLK};
+                \draw[->] (clk) -- (store.\llA);
                 
-%                 \path[draw, ->] (transFunc.\mrA) -- ($(transFunc.\mrA) + (0.2,0)$) -- ($(store.\mrA) + (0.2,0)$) node[midway, right] {$Z_{n+1}$} -- (store.\mrA);
+                \path[draw, ->] (transFunc.\mrA) -- ($(transFunc.\mrA) + (0.2,0)$) -- ($(store.\mrA) + (0.2,0)$) node[midway, right] {$Z_{n+1}$} -- (store.\mrA);
 
-%                 \path[draw, ->, blue] (store.\ulA) -- ($(store.\ulA) - (0.2,0)$) -- ($(transFunc.\llA) - (0.2,0)$) node[midway, left, black] {$Z_n$} -- (transFunc.\llA); 
-%                 \path[draw, ->, blue] ($(transFunc.\llA) - (0.2,0)$) -- ($(outputFunc.\ulA) - (0.2,0)$) -- (output);
+                \path[draw, ->, blue] (store.\ulA) -- ($(store.\ulA) - (0.2,0)$) -- ($(transFunc.\llA) - (0.2,0)$) node[midway, left, black] {$Z_n$} -- (transFunc.\llA); 
+                \path[draw, ->, blue] ($(transFunc.\llA) - (0.2,0)$) |- (output);
 
-%                 \node[left = 4mm of transFunc.\ulA] (input) {\small $X_n$};
-%                 \path[draw, ->, red] (input) -- (transFunc.\ulA);
-%             \end{tikzpicture}
-%         \end{center}
-%     \end{minipage}
-% \end{center}
+                \node[left = 4mm of transFunc.\ulA] (input) {\small $X_n$};
+                \path[draw, ->, red] (input) -- (transFunc.\ulA);
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+\end{center}
+\paragraph{Zustandsdiagram}
+\begin{center}
+    \begin{tikzpicture}[thick]
+        \node[state] (z0) at (0,0) {$Z_0$};
+        \node[state] (z1) at (3,0) {$Z_1$};
+        \path[->, > = stealth] (z0) edge node[above] {Input} (z1)
+            (z1) edge[loop right] node{I} ();
+    \end{tikzpicture}
+\end{center}
+\subsubsection{Nachtrag Zustandsdiagram}
 \begin{flushleft}
-    \renewcommand{\arraystretch}{1.25}
-    \begin{tabular}{l p{44mm}}
-        \textbf{Mealy} & Ausgänge von inneren Zuständen \underline{und} Eingängen abhängig\\
-        & $Y_n = f_{c2}(X_n, Z_n)$\\
-        \hline
-        \textbf{Moore} & Ausgänge nur von inneren Zuständen abhängig (keine Verbindung zwischen Input und Output)\\
-        & $Y_n = f_{c2}(Z_n)$\\
-        \hline
-        \textbf{Medwedjew} & Ausgänge entsprechen inneren Zuständen \\
-        & $Y_n = Z_n$
+    \begin{tabular}{l l}
+        \textbf{Knoten} & interne Zustände\\
+        \textbf{Kanten} & Übergänge zwischen Zuständen
     \end{tabular}
 \end{flushleft}
+\cemph{Wichtig} Von jedem Knoten aus muss es für jeden Eingang eine Kante geben, diese können aber zusammengefasst werden.
 \subsection{Zustandsfolgetabelle}
 Auflistung aller möglichen Kombinationen der aktuellen inneren Zuständen sowie den Eingängen mit den dazugehörigen Folgezuständen und Ausgängen.
 \begin{flushleft}
@@ -155,41 +177,7 @@ Auflistung aller möglichen Kombinationen der aktuellen inneren Zuständen sowie
         \multicolumn{4}{l}{$2^{e + m}$ Zeilen}\\
     \end{tabular}
 \end{flushleft}
-\subsection{Zustandsdiagram}
-\begin{flushleft}
-    \begin{tabular}{l l}
-        \textbf{Knoten} & interne Zustände\\
-        \textbf{Kanten} & Übergänge zwischen Zuständen
-    \end{tabular}
-\end{flushleft}
-\subsubsection{Mealy-Automat}
-\begin{center}
-    \begin{tikzpicture}
-        \node[state] (z0) at (0,0) {$Z_0$};
-        \node[state] (z1) at (3,0) {$Z_1$};
-        \path[->, > = stealth] (z0) edge node[above] {Input/Output} (z1)
-            (z1) edge[loop right] node{I/O} ();
-    \end{tikzpicture}
-\end{center}
-\subsubsection{Moore-Automat}
-\begin{center}
-    \begin{tikzpicture}
-        \node[state with output] (z0) at (0,0) {$Z_0$ \nodepart{lower} $Y_0$};
-        \node[state  with output] (z1) at (3,0) {$Z_1$ \nodepart{lower} $Y_1$};
-        \path[->, > = stealth] (z0) edge node[above] {Input} (z1)
-            (z1) edge[loop right] node{I} ();
-    \end{tikzpicture}
-\end{center}
-\subsubsection{Medwedjew-Automat}
-\begin{center}
-    \begin{tikzpicture}
-        \node[state] (z0) at (0,0) {$Z_0$};
-        \node[state] (z1) at (3,0) {$Z_1$};
-        \path[->, > = stealth] (z0) edge node[above] {Input} (z1)
-            (z1) edge[loop right] node{I} ();
-    \end{tikzpicture}
-\end{center}
-\cemph{Wichtig} Von jedem Knoten aus muss es für jeden Eingang eine Kante geben, diese können aber zusammengefasst werden.
+\cemph{Wichtig}: für $e,m,b$ Anzahl Bits verwenden, nicht Anzahl Zustände.
 \subsection{Entwurf eines Automaten}
 \begin{enumerate}
     \item Auftrag lesen und analysieren $\rightarrow$ Automatentyp bestimmen.
