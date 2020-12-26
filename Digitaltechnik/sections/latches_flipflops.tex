@@ -27,11 +27,35 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
 \subsubsection{SR-Latch}
 \begin{center}
     \begin{minipage}[c]{0.4\linewidth}
-        \includegraphics[width = 23mm]{images/sr_latch.jpeg}
+        \begin{circuit}
+            \node[srLatch] (srlatch) {};
+            \path[draw] (srlatch.pin 1) --++(180:0.4) node[fill = white] {\cirin{S}};
+            \path[draw] (srlatch.pin 3) --++(180:0.4) node[fill = white] {\cirin{R}};
+            \path[draw] (srlatch.pin 6) --++(0:0.4) node[fill = white] {\cirout{Q}};
+            \path[draw] (srlatch.pin 4) --++(0:0.4) node[fill = white] {\ciroutn{Q}};
+        \end{circuit}
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.55\linewidth}
-        \includegraphics[width = 35mm]{images/sr_latch_cir.jpeg}
+        \begin{circuit}
+            \node[nor port] (nor1) {};
+            \node[nor port, below = 4mm of nor1] (nor2) {};
+
+            \path[draw] (nor1.in 1) --++(180:0.6) node[fill = white] {\cirin{S}};
+            \path[draw] (nor2.in 2) --++(180:0.6) node[fill = white] {\cirin{R}};
+
+            \node[circ, right = 3mm of nor1.out] (nex1) {};
+            \node[circ, right = 3mm of nor2.out] (nex2) {};
+
+            \draw (nor1.out) -- (nex1) --++(270:0.3) -- ($(nor2.in 1) + (0, 0.25)$) -- (nor2.in 1);
+            \draw (nor2.out) -- (nex2) --++(90:0.3) -- ($(nor1.in 2) - (0, 0.25)$) -- (nor1.in 2);
+
+            \node[right = 12mm of nor1.out] (q) {\cirout{Q}};
+            \node[right = 12mm of nor2.out] (notq) {\ciroutn{Q}};
+
+            \draw (nex1) --++(0:0.2) -- ($(notq) - (0.4, 0)$) -- (notq);
+            \draw (nex2) --++(0:0.2) -- ($(q) - (0.4, 0)$) -- (q);
+        \end{circuit}
     \end{minipage}
 \end{center}
 \begin{flushleft}
@@ -56,11 +80,36 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
 \subsubsection{SRT-Latch}
 \begin{center}
     \begin{minipage}[c]{0.4\linewidth}
-        \includegraphics[width = 23mm]{images/srt_latch.jpeg}
+        \begin{circuit}
+            \node[srtLatch] (srtlatch) {};
+            \path[draw] (srtlatch.pin 1) --++(180:0.4) node[fill = white] {\cirin{S}};
+            \path[draw] (srtlatch.pin 2) --++(180:0.4) node[fill = white] {\cirin{T}};
+            \path[draw] (srtlatch.pin 3) --++(180:0.4) node[fill = white] {\cirin{R}};
+            \path[draw] (srtlatch.pin 6) --++(0:0.4) node[fill = white] {\cirout{Q}};
+            \path[draw] (srtlatch.pin 4) --++(0:0.4) node[fill = white] {\ciroutn{Q}};
+        \end{circuit}
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.55\linewidth}
-        \includegraphics[width = 35mm]{images/srt_latch_cir.jpeg}
+        \begin{circuit}
+            \node[and port] (and1) at (0, 0.5) {};
+            \node[and port] (and2) at (0, -0.5) {};
+            \node[srLatch] (srlatch) at (1.1,0) {};
+
+            \node[left = 4mm of and1.in 1] (sin) {\cirin{S}};
+            \node[left = 4mm of and2.in 2] (rin) {\cirin{S}};
+            \node[] at ($(sin)!0.5!(rin)$) (tin) {\cirin{T}};
+            \node[right = 3mm of srlatch.pin 6] (q) {\cirout{Q}};
+            \node[right = 3mm of srlatch.pin 4] (notq) {\ciroutn{Q}};
+
+            \draw[] (sin) -- (and1.in 1); 
+            \draw[] (rin) -- (and2.in 2); 
+            \draw[] (tin) --++(0:0.5) |- (and1.in 2);
+            \draw[] (tin) --++(0:0.5) |- (and2.in 1);
+
+            \draw[] (and1.out) --++(0:0.2) node[label={[label distance = -2mm, font = \small]20:$\text{S}_{\text{int}}$}]{} |- (srlatch.pin 1);
+            \draw[] (and2.out) --++(0:0.2) node[label={[label distance = -2mm, font = \small]340:$\text{R}_{\text{int}}$}]{} |- (srlatch.pin 3);
+        \end{circuit}
     \end{minipage}
 \end{center}
 \begin{flushleft}
@@ -75,11 +124,34 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
 \subsubsection{D-Latch}
 \begin{center}
     \begin{minipage}[c]{0.4\linewidth}
-        \includegraphics[width = 23mm]{images/d_latch.jpeg}
+        \begin{circuit}
+            \node[dLatch] (dlatch) {};
+            \path[draw] (dlatch.pin 1) --++(180:0.4) node[fill = white] {\cirin{D}};
+            \path[draw] (dlatch.pin 2) --++(180:0.4) node[fill = white] {\cirin{T}};
+            \path[draw] (dlatch.pin 6) --++(0:0.4) node[fill = white] {\cirout{Q}};
+            \path[draw] (dlatch.pin 4) --++(0:0.4) node[fill = white] {\ciroutn{Q}};
+        \end{circuit}
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.55\linewidth}
-        \includegraphics[width = 35mm]{images/d_latch_cir.jpeg}
+        \begin{circuit}
+            \node[srtLatch] (srtlatch) {};
+
+            \node[left = 14mm of srtlatch.pin 1] (din) {\cirin{D}};
+            \node[left = 14mm of srtlatch.pin 2] (tin) {\cirin{T}};
+            \node[right = 2mm of srtlatch.pin 6] (q) {\cirout{Q}};
+            \node[right = 2mm of srtlatch.pin 4] (notq) {\ciroutn{Q}};
+
+            \node[not port, left = 2mm of srtlatch.pin 3] (not) {};
+
+            \draw (din) -- (srtlatch.pin 1);
+            \draw (tin) -- (srtlatch.pin 2);
+            \draw (srtlatch.pin 6) -- (q);
+            \draw (srtlatch.pin 4) -- (notq);
+
+            \node[circ, right = 2mm of din] (nex1) {};
+            \draw (nex1) |- (not.in) (not.out) -- (srtlatch.pin 3);
+        \end{circuit}
     \end{minipage}
 \end{center}
 Bauelement, das Daten für die Periodendauer eines Taktes speichern kann.

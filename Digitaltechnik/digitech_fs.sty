@@ -68,7 +68,31 @@
     circ/.style = {circle, fill = black, minimum size=1mm, inner sep=0pt, outer sep=0pt},
     point/.style = {circle, draw = black, thick, minimum size=1mm, inner sep=0pt, outer sep=0pt},
     gnd/.style = {draw, fill, minimum width = 10mm, minimum height = 1pt},
-    kvbinhead/.style = {draw = white, fill = secondaryheader!30, text = black}
+    kvbinhead/.style = {draw = white, fill = secondaryheader!30, text = black},
+    srLatch/.style = {flipflop, flipflop def = {t1 = S, t3 =R, t6={~}, n4 = 1}},
+    srtLatch/.style = {flipflop, flipflop def = {t1 = S, t2 = T, t3 =R, t6={~}, n4 = 1}},
+    dLatch/.style = {flipflop, flipflop def = {t1 = D, t2 = T, t6={~}, n4 = 1}}
+}
+
+\newcommand{\cirin}[1]{\textbf{\sffamily #1}}
+\newcommand{\cirout}[1]{\textit{\textbf{#1}}}
+\newcommand{\ciroutn}[1]{$\overline{\text{\textit{\textbf{#1}}}}$}
+
+\newenvironment{circuit}[1][0.4]{
+    \begin{center}
+    \begin{circuitikz}[european]
+        \ctikzset{flipflops/scale = #1}
+        \ctikzset{multipoles/flipflop/font = \normalsize}
+        \ctikzset{tripoles/european not symbol=circle}
+        \ctikzset{tripoles/european nor port/height=0.4}
+        \ctikzset{tripoles/european nor port/width=0.6} 
+        \ctikzset{tripoles/european and port/height=0.4}
+        \ctikzset{tripoles/european and port/width=0.6} 
+        \ctikzset{tripoles/european not port/height=0.3}
+        \ctikzset{tripoles/european not port/width=0.5} 
+}{
+    \end{circuitikz}
+    \end{center}
 }
 
 \renewcommand{\title}[1]{\newcommand{\themaintitle}{#1}}
