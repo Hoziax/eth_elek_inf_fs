@@ -64,6 +64,8 @@
 \definecolor{secondaryheader}{HTML}{f1935c}
 \definecolor{thirdheader}{HTML}{ba6b57}
 
+\newcommand{\clktag}{{\footnotesize C1}}
+
 \tikzset{
     circ/.style = {circle, fill = black, minimum size=1mm, inner sep=0pt, outer sep=0pt},
     point/.style = {circle, draw = black, thick, minimum size=1mm, inner sep=0pt, outer sep=0pt},
@@ -71,7 +73,12 @@
     kvbinhead/.style = {draw = white, fill = secondaryheader!30, text = black},
     srLatch/.style = {flipflop, flipflop def = {t1 = S, t3 =R, t6={~}, n4 = 1}},
     srtLatch/.style = {flipflop, flipflop def = {t1 = S, t2 = T, t3 =R, t6={~}, n4 = 1}},
-    dLatch/.style = {flipflop, flipflop def = {t1 = D, t2 = T, t6={~}, n4 = 1}}
+    dLatch/.style = {flipflop, flipflop def = {t1 = D, t2 = T, t6={~}, n4 = 1}},
+    dFf/.style = {flipflop, flipflop def = {t1 = D, t2=\clktag, t6={~}, c2=1, n4=1}},
+    srFf/.style = {flipflop, flipflop def = {t1 = S, t2=\clktag, t3=R, t6={~}, c2=1, n4=1}},
+    jkFf/.style = {flipflop, flipflop def = {t1 = J, t2=\clktag, t3=K, t6={~}, c2=1, n4=1}},  
+    tFfv1/.style = {flipflop, flipflop def = {t2=\clktag, t6={~}, c2=1, n4=1}, label={[label distance =3mm]120:T}},
+    tFfv2/.style = {flipflop, flipflop def = {t1=T, t2=\clktag, t6={~}, c2=1, n4=1}}
 }
 
 \newcommand{\cirin}[1]{\textbf{\sffamily #1}}
@@ -83,6 +90,7 @@
     \begin{circuitikz}[european]
         \ctikzset{flipflops/scale = #1}
         \ctikzset{multipoles/flipflop/font = \normalsize}
+        \ctikzset{multipoles/flipflop/clock wedge size=0.3}
         \ctikzset{tripoles/european not symbol=circle}
         \ctikzset{tripoles/european nor port/height=0.4}
         \ctikzset{tripoles/european nor port/width=0.6} 

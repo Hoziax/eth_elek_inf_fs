@@ -107,6 +107,9 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
             \draw[] (tin) --++(0:0.5) |- (and1.in 2);
             \draw[] (tin) --++(0:0.5) |- (and2.in 1);
 
+            \draw(srlatch.pin 6) -- (q);
+            \draw(srlatch.pin 4) -- (notq);
+
             \draw[] (and1.out) --++(0:0.2) node[label={[label distance = -2mm, font = \small]20:$\text{S}_{\text{int}}$}]{} |- (srlatch.pin 1);
             \draw[] (and2.out) --++(0:0.2) node[label={[label distance = -2mm, font = \small]340:$\text{R}_{\text{int}}$}]{} |- (srlatch.pin 3);
         \end{circuit}
@@ -224,12 +227,39 @@ Bauelement, das Daten für die Periodendauer eines Taktes speichern kann.
 \end{center}
 \subsubsection{D-FlipFlop}
 \begin{center}
-    \begin{minipage}[c]{0.4\linewidth}
-        \includegraphics[width = 23mm]{images/d_ff.jpeg}
+    \begin{minipage}[c]{0.35\linewidth}
+        \begin{circuit}
+            \node[dFf] (dff) {};
+            
+            \path[draw] (dff.pin 1) --++(180:0.4) node[fill=white] {\cirin{D}};
+            \path[draw] (dff.pin 2) --++(180:0.4) node[fill=white] {\cirin{CLK}};
+            \path[draw] (dff.pin 6) --++(0:0.4) node[fill=white] {\cirout{Q}};
+            \path[draw] (dff.pin 4) --++(0:0.4) node[fill=white] {\ciroutn{Q}};
+        \end{circuit}
     \end{minipage}
     \hfill
-    \begin{minipage}[c]{0.55\linewidth}
-        \includegraphics[width = 35mm]{images/d_ff_cir.jpeg}
+    \begin{minipage}[c]{0.6\linewidth}
+        \begin{circuit}[0.3]
+            \ctikzset{multipoles/flipflop/font = \footnotesize}
+            \node[dLatch, flipflop def ={n2=1}, label={[font = \footnotesize, label distance = 5mm] 90:Master}] (dMaster) {};
+            \node[dLatch, label={[font = \footnotesize, label distance = 5mm] 90:Slave}, right = of dMaster] (dSlave) {};
+
+            \node[left = 4mm of dMaster.pin 1] (din) {\cirin{D}};
+            \node[below = 4mm of din] (clk) {\cirin{CLK}};
+            \node[right = 4mm of dSlave.pin 6] (q) {\cirout{Q}};
+            \node[right = 4mm of dSlave.pin 4] (notq) {\ciroutn{Q}};
+            
+            \node[circ, right = 1mm of clk] (nex1) {};
+            \node[circ] at ($(dMaster.pin 6)!0.5!(dSlave.pin 1)$) (nex2) {};
+
+            \draw (din) -- (dMaster.pin 1);
+            \draw (dMaster.pin 6) -- (nex2) -- (dSlave.pin 1);
+            \draw (clk) -- (nex1) |- (dMaster-N2.west);
+            \draw (nex1) --++ (0:1.2) |- (dSlave.pin 2);
+            \path[draw] (nex2) --++(90:0.3) node[fill = white, font = \footnotesize] {X};
+            \draw (dSlave.pin 6) -- (q);
+            \draw (dSlave-N4.east) -- (notq);
+        \end{circuit}
     \end{minipage}
 \end{center}
 \begin{equation*}
