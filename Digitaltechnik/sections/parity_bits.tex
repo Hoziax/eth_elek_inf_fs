@@ -36,9 +36,9 @@ Bitsequenz wird in 4 Bits unterteilt. Pro Nibble wird ein \textcolor{blue}{Parit
                 \begin{pgfonlayer}{l1}
                     \draw[] (pm-4-1.south west) -- (pm-4-4.south east) -- (pm-1-4.north east);
                 \end{pgfonlayer}
-                \draw[thick, darkgreen] ($(pm-5-1.north west) + (1.5pt, -1.5pt)$) rectangle ($(pm-5-5.south east) + (-1.5pt, 1.5pt)$);
+                \fill[draw, thick, darkgreen, rounded corners = 3pt, fill opacity = 0.3] ($(pm-5-1.north west) + (1.5pt, -1.5pt)$) rectangle ($(pm-5-5.south east) + (-1.5pt, 1.5pt)$);
                 \begin{pgfonlayer}{bg}
-                    \fill[thick, blue, opacity = 0.5] ($(pm-1-5.north west) + (1.5pt, -1.5pt)$) rectangle ($(pm-5-5.south east) + (-1.5pt, 1.5pt)$);
+                    \fill[draw, thick, blue, rounded corners = 3pt, fill opacity = 0.3] ($(pm-1-5.north west) + (1.5pt, -1.5pt)$) rectangle ($(pm-5-5.south east) + (-1.5pt, 1.5pt)$);
                 \end{pgfonlayer}
             \end{tikzpicture}
         \end{center}
@@ -64,8 +64,8 @@ Bitsequenz wird in 4 Bits unterteilt. Pro Nibble wird ein \textcolor{blue}{Parit
                     \draw[] (pm-4-1.south west) -- (pm-4-4.south east) -- (pm-1-4.north east);
                 \end{pgfonlayer}
                 \begin{pgfonlayer}{bg}
-                    \fill[mred, fill opacity = 0.5, rounded corners = 3pt] (pm-1-3.north west) rectangle (pm-5-3.south east);
-                    \fill[mred, fill opacity = 0.5, rounded corners = 3pt] (pm-2-1.north west) rectangle (pm-2-5.south east);
+                    \fill[mred, draw, thick, fill opacity = 0.3, rounded corners = 3pt] (pm-1-3.north west) rectangle (pm-5-3.south east);
+                    \fill[mred, draw, thick, fill opacity = 0.3, rounded corners = 3pt] (pm-2-1.north west) rectangle (pm-2-5.south east);
                 \end{pgfonlayer}
             \end{tikzpicture}
         \end{center}
