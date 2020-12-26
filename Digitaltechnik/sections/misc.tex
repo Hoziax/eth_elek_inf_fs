@@ -98,3 +98,25 @@ Division durch 2 bedeutet: Verschiebung des Kommas nach links (shift), mit Vorze
 \end{center}
 Anfangswerte: $P_{-1} = 0$, $a_{-1} = 0$\\
 Beim letzten Schritt entfällt die Division durch 2.
+
+\subsection{Zahlencodes}
+\begin{center}
+    \csvreader[
+        separator=semicolon,
+        tabular=|c|cccccc|,
+        head=true,
+        table head=\hline\rotatebox{90}{Binär} & \rotatebox{90}{BCD} & \rotatebox{90}{Excess-3~} & \rotatebox{90}{Aiken} & \rotatebox{90}{4-2-2-1} & \rotatebox{90}{Gray} & \rotatebox{90}{O'Brien}\\\hline,
+        table foot = \hline,
+        late after line=\csvifoddrow{\\\rowcolor{white}}{\\\rowcolor{primaryheader!15}}
+        ]{tables/codes.csv}{
+            1=\binary, 
+            2=\bcd, 
+            3=\excessThree, 
+            4=\aiken, 
+            5=\ftto, 
+            6=\gray, 
+            7=\obrien
+            }{%
+            \binary & \bcd & \excessThree & \aiken & \ftto & \gray & \obrien
+    }%
+\end{center}
