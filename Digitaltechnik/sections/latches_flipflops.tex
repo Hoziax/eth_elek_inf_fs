@@ -239,18 +239,20 @@ Bauelement, das Daten für die Periodendauer eines Taktes speichern kann.
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.6\linewidth}
-        \begin{circuit}[0.3]
+        \begin{circuit}[0.35]
             \ctikzset{multipoles/flipflop/font = \footnotesize}
             \node[dLatch, flipflop def ={n2=1}, label={[font = \footnotesize, label distance = 5mm] 90:Master}] (dMaster) {};
             \node[dLatch, label={[font = \footnotesize, label distance = 5mm] 90:Slave}, right = of dMaster] (dSlave) {};
 
             \node[left = 4mm of dMaster.pin 1] (din) {\cirin{D}};
-            \node[below = 4mm of din] (clk) {\cirin{CLK}};
+            \node[below = 5mm of din] (clk) {\cirin{CLK}};
             \node[right = 4mm of dSlave.pin 6] (q) {\cirout{Q}};
             \node[right = 4mm of dSlave.pin 4] (notq) {\ciroutn{Q}};
             
-            \node[circ, right = 1mm of clk] (nex1) {};
-            \node[circ] at ($(dMaster.pin 6)!0.5!(dSlave.pin 1)$) (nex2) {};
+            \begin{pgfonlayer}{tl1}
+                \node[circ, right = 1mm of clk] (nex1) {};
+                \node[circ] at ($(dMaster.pin 6)!0.5!(dSlave.pin 1)$) (nex2) {};
+            \end{pgfonlayer}
 
             \draw (din) -- (dMaster.pin 1);
             \draw (dMaster.pin 6) -- (nex2) -- (dSlave.pin 1);
@@ -273,12 +275,42 @@ Bauelement, das Daten für die Periodendauer eines Taktes speichern kann.
 \end{flushleft}
 \subsubsection{SR-FlipFlop}
 \begin{center}
-    \begin{minipage}[c]{0.4\linewidth}
-        \includegraphics[width = 23mm]{images/srt_ff.jpeg}
+    \begin{minipage}[c]{0.35\linewidth}
+        \begin{circuit}
+            \node[srFf] (srff) {};
+            \path[draw] (dff.pin 1) --++(180:0.4) node[fill=white] {\cirin{D}};
+            \path[draw] (dff.pin 2) --++(180:0.4) node[fill=white] {\cirin{CLK}};
+            \path[draw] (dff.pin 3) --++(180:0.4) node[fill=white] {\cirin{R}};
+            \path[draw] (dff.pin 6) --++(0:0.4) node[fill=white] {\cirout{Q}};
+            \path[draw] (dff.pin 4) --++(0:0.4) node[fill=white] {\ciroutn{Q}};
+        \end{circuit}
     \end{minipage}
     \hfill
-    \begin{minipage}[c]{0.55\linewidth}
-        \includegraphics[width = 35mm]{images/srt_ff_cir.jpeg}
+    \begin{minipage}[c]{0.6\linewidth}
+       \begin{circuit}[0.35]
+        \ctikzset{multipoles/flipflop/font = \footnotesize}
+        \node[srtLatch, flipflop def ={n2=1}, label={[font = \footnotesize, label distance = 5mm] 90:Master}] (srMaster) {};
+        \node[srtLatch, label={[font = \footnotesize, label distance = 5mm] 90:Slave}, right = of dMaster] (srSlave) {};
+
+        \node[left = 4mm of srMaster.pin 1] (sin) {\cirin{S}};
+        \node[left = 4mm of srMaster.pin 3] (rin) {\cirin{R}};
+        \node[below = 2mm of rin] (clk) {\cirin{CLK}};
+        \node[right = 4mm of srSlave.pin 6] (q) {\cirout{Q}};
+        \node[right = 4mm of srSlave.pin 4] (notq) {\ciroutn{Q}};
+
+        \draw (sin) -- (srMaster.pin 1);
+        \draw (rin) -- (srMaster.pin 3);
+        \draw (srMaster.pin 6) -- (srSlave.pin 1);
+        \draw (srMaster-N4.east) -- (srSlave.pin 3);
+        \draw (srSlave.pin 6) -- (q);
+        \draw (srSlave.pin 4) -- (notq);
+
+        \begin{pgfonlayer}{tl1}
+            \node[circ, right = 1mm of clk] (nex1) {}; 
+        \end{pgfonlayer}
+        \draw (clk) -- (nex1) |- (srMaster-N2.west);
+        \draw (nex1) --++(0:1.2) |- (srSlave.pin 2);
+       \end{circuit}
     \end{minipage}
 \end{center}
 \begin{equation*}
@@ -286,12 +318,50 @@ Bauelement, das Daten für die Periodendauer eines Taktes speichern kann.
 \end{equation*}
 \subsubsection{JK-FlipFlop}
 \begin{center}
-    \begin{minipage}[c]{0.4\linewidth}
-        \includegraphics[width = 23mm]{images/jk_ff.jpeg}
+    \begin{minipage}[c]{0.33\linewidth}
+        \begin{circuit}
+            \node[jkFf] (jkff) {};
+            \path[draw] (jkff.pin 1) --++(180:0.4) node[fill=white] {\cirin{J}};
+            \path[draw] (jkff.pin 2) --++(180:0.4) node[fill=white] {\cirin{CLK}};
+            \path[draw] (jkff.pin 3) --++(180:0.4) node[fill=white] {\cirin{K}};
+            \path[draw] (jkff.pin 6) --++(0:0.4) node[fill=white] {\cirout{Q}};
+            \path[draw] (jkff.pin 4) --++(0:0.4) node[fill=white] {\ciroutn{Q}};
+        \end{circuit}
     \end{minipage}
     \hfill
-    \begin{minipage}[c]{0.55\linewidth}
-        \includegraphics[width = 35mm]{images/jk_ff_cir.jpeg}
+    \begin{minipage}[c]{0.65\linewidth}
+        \begin{circuit}
+            \ctikzset{tripoles/european and port/height=0.3}
+            \node[srFf] (srff) {};
+
+            \node[and port, left = 3mm of srff.pin 1] (and1) {};
+            \node[and port, left = 3mm of srff.pin 3] (and2) {};
+
+            \node[left = 3mm of and1.in 2] (jin) {\cirin{J}};
+            \node[left = 3mm of and2.in 1] (kin) {\cirin{K}};
+            \node[left = 10mm of srff.pin 2] (clk) {\cirin{CLK}};           
+            \node[right = 4.5mm of srff.pin 6] (q) {\cirout{Q} $= Q_1$};           
+            \node[right = 4.5mm of srff.pin 4] (notq) {\ciroutn{Q} $= Q_2$};    
+            
+            \draw (and1.out) -- (srff.pin 1);
+            \draw (and2.out) -- (srff.pin 3);
+            \draw (jin) -- (and1.in 2);
+            \draw (kin) -- (and2.in 1);
+            \draw (clk) -- (srff.pin 2);
+
+            \begin{pgfonlayer}{tl1}
+                \node[circ, right = 0.8mm of srff.pin 6] (nex1) {};
+                \node[circ, right = 2.4mm of srff.pin 4] (nex2) {};
+            \end{pgfonlayer}
+            \draw (srff.pin 6) -- (nex1) -- (q);
+            \draw (srff.pin 4) -- (nex2) -- (notq);
+
+            \draw (nex1) --++(270:1) -| (and2.in 2);
+            \draw (nex2) --++(90:1) -| (and1.in 1);
+
+            \node[label={[label distance = -1.5mm, font = \scriptsize] 90:$\text{S}_\text{i}$}] at ($(and1.out)!0.5!(srff.pin 1)$) {}; 
+            \node[label={[label distance = -1.5mm, font = \scriptsize] 270:$\text{R}_\text{i}$}] at ($(and2.out)!0.5!(srff.pin 3)$) {}; 
+        \end{circuit}
     \end{minipage}
 \end{center}
 \begin{equation*}
@@ -312,7 +382,12 @@ Bei $\text{J}=\text{K}=1$ wechselt Output. (toggel)
 \begin{center}
     \begin{minipage}[t]{0.45\linewidth}
         \paragraph{V1} Ausgang wechselt bei jeder aktiven Taktflanke.
-        \includegraphics[height = 10mm]{images/t_ff_1.jpeg}
+        \begin{circuit}
+            \node[tFfv1] (tff) {};
+            \path[draw] (tff.pin 2) --++(180:0.4) node[fill=white] {\cirin{CLK}};
+            \path[draw] (tff.pin 6) --++(0:0.4) node[fill=white] {\cirout{Q}};
+            \path[draw] (tff.pin 4) --++(0:0.4) node[fill=white] {\ciroutn{Q}};
+        \end{circuit}
         \begin{align*}
             &Q_{n + 1} = \overline{Q_n}\\
             &\text{wenn CLK}~0\rightarrow 1 
@@ -321,7 +396,13 @@ Bei $\text{J}=\text{K}=1$ wechselt Output. (toggel)
     \hfill
     \begin{minipage}[t]{0.45\linewidth}
         \paragraph{V2} Ausgang wechselt bei aktiver Taktflanke nur wenn \emph{$T = 1$}.
-        \includegraphics[height = 10mm]{images/t_ff_2.jpeg}
+        \begin{circuit}[0.35]
+            \node[tFfv2] (tff) {};
+            \path[draw] (tff.pin 1) --++(180:0.4) node[fill=white] {\cirin{T}};
+            \path[draw] (tff.pin 2) --++(180:0.4) node[fill=white] {\cirin{CLK}};
+            \path[draw] (tff.pin 6) --++(0:0.4) node[fill=white] {\cirout{Q}};
+            \path[draw] (tff.pin 4) --++(0:0.4) node[fill=white] {\ciroutn{Q}};
+        \end{circuit}
         \begin{align*}
             &Q_{n + 1} = \overline{Q_n}\\
             &\text{wenn CLK}~0\rightarrow 1 \land T = 1
@@ -333,21 +414,73 @@ Bei $\text{J}=\text{K}=1$ wechselt Output. (toggel)
         \begin{flushleft}
             BS V1
         \end{flushleft}
-        \includegraphics[width = 20mm]{images/t_ff_cir_11.jpeg}
+        \begin{circuit}[0.3]
+            \ctikzset{multipoles/flipflop/font = \footnotesize}
+            \node[dFf] (dff) {};
+
+            \node[font = \small, left = 1mm of dff.pin 2] (clk) {\cirin{CLK}};
+            \node[font = \small, right = 2.5mm of dff.pin 6] (q) {\cirout{Q}};
+            \node[font = \small, right = 2.5mm of dff.pin 4] (notq) {\ciroutn{Q}};
+
+            \begin{pgfonlayer}{tl1}
+                \node[circ, right = 1mm of dff.pin 4] (nex1) {}; 
+            \end{pgfonlayer}
+
+            \draw (clk) -- (dff.pin 2);
+            \draw (dff.pin 6) -- (q);
+            \draw (dff-N4.east) -- (notq);
+            \draw (nex1) --++(90:0.7) -| (dff.pin 1);
+        \end{circuit}
     \end{minipage}
     \hfill\vline\hfill
     \begin{minipage}[t]{0.3\linewidth}
         \begin{flushleft}
             BS V1
         \end{flushleft}
-        \includegraphics[width = 20mm]{images/t_ff_cir_12.jpeg}
+        \begin{circuit}[0.3]
+            \ctikzset{multipoles/flipflop/font = \footnotesize}
+            \node[srFf] (srff) {};
+
+            \node[font = \small, left = 1mm of srff.pin 2] (clk) {\cirin{CLK}};
+            \node[font = \small, right = 2.5mm of srff.pin 6] (q) {\cirout{Q}};
+            \node[font = \small, right = 2.5mm of srff.pin 4] (notq) {\ciroutn{Q}};
+
+            \begin{pgfonlayer}{tl1}
+                \node[circ, right = 0.7mm of srff.pin 4] (nex1) {}; 
+                \node[circ, right = 1.4mm of srff.pin 6] (nex2) {}; 
+            \end{pgfonlayer}
+
+            \draw (clk) -- (srff.pin 2);
+            \draw (srff.pin 6) -- (q);
+            \draw (srff-N4.east) -- (notq);
+            \draw (nex1) --++(90:0.7) -| (srff.pin 1);
+            \draw (nex2) --++(270:0.7) -| (srff.pin 3);
+        \end{circuit}
     \end{minipage}
     \hfill\vline\hfill
     \begin{minipage}[t]{0.3\linewidth}
         \begin{flushleft}
             BS V2
         \end{flushleft}
-        \includegraphics[width = 20mm]{images/t_ff_cir_21.jpeg}
+        \begin{circuit}[0.3]
+            \ctikzset{multipoles/flipflop/font = \footnotesize}
+            \node[jkFf] (jkff) {};
+
+            \node[font = \small, left = 2.5mm of jkff.pin 1] (tin) {\cirin{T}};
+            \node[font = \small, left = 2.5mm of jkff.pin 2] (clk) {\cirin{CLK}};
+            \node[font = \small, right = 1mm of jkff.pin 6] (q) {\cirout{Q}};
+            \node[font = \small, right = 1mm of jkff.pin 4] (notq) {\ciroutn{Q}};
+
+            \begin{pgfonlayer}{tl1}
+                \node[circ] at ($(tin)!0.7!(jkff.pin 1)$) (nex1) {}; 
+            \end{pgfonlayer}
+
+            \draw (tin) -- (jkff.pin 1);
+            \draw (clk) -- (jkff.pin 2);
+            \draw (jkff.pin 6) -- (q);
+            \draw (jkff-N4.east) -- (notq);
+            \draw (nex1) |- (jkff.pin 3);
+        \end{circuit}
     \end{minipage}
 \end{center}
 
@@ -439,12 +572,31 @@ TG sperrt wenn Widerstand hochohmig ist. ($\text{T}=0$)
 
 \subsubsection{Asynchroner Set/Reset Input}
 \begin{center}
-    \begin{minipage}{0.55\linewidth}
+    \begin{minipage}{0.45\linewidth}
         Können gespeicherte Zustände asynchron zu CLK überschreiben.
     \end{minipage}
     \hfill
-    \begin{minipage}{0.4\linewidth}
-        \includegraphics[width = 23mm]{images/async_sr.jpeg}
+    \begin{minipage}{0.5\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{pgfonlayer}{bg}
+                    \node[draw, thick, minimum height = 10mm, minimum width = 7mm] at(0,0) (base) {};
+                    \draw[thick] ($(base.170) +(0.01, 0)$) -- ($(base.180) + (0.1,0)$) -- ($(base.190) +(0.01, 0)$);
+                    \node[point] (not) at ($(base.320) + (0.05,0)$) {};
+                \end{pgfonlayer}
+                \coordinate[label={[font = \footnotesize, label distance = 0mm]0:1D}] (d) at(base.140);  
+                \coordinate[label={[font = \footnotesize, label distance = 0.5mm]0:C1}] (c) at(base.180);
+                \coordinate[label={[font = \footnotesize, label distance = 0mm]90:R}] (r) at(base.250);  
+                \coordinate[label={[font = \footnotesize, label distance = 0mm]90:S}] (s) at(base.290);  
+
+                \path[draw] (d) --++(180:0.6) node[fill = white] {\cirin{D}};
+                \path[draw] (c) --++(180:0.6) node[fill = white] {\cirin{CLK}};
+                \path[draw] (base.40) --++(0:0.6) node[fill = white] {\cirout{Q}};
+                \path[draw] (not) --++(0:0.55) node[fill = white] {\ciroutn{Q}};
+                \path[draw] (r) --++(270:0.2) coordinate[pin={[pin distance = 2mm, font = \scriptsize, color = blue, text width = 12mm] 200:asynchroner Reset}] (rf);
+                \path[draw] (s) --++(270:0.2) coordinate[pin={[pin distance = 1mm, font = \scriptsize, color = blue, text width = 12mm] 280:asynchroner Set}] (sf);
+            \end{tikzpicture}
+        \end{center}
     \end{minipage}
 \end{center}
 
@@ -465,12 +617,38 @@ Es wird der längste PFad zwischen zwei FlipFlops betrachtet.
 
 \subsubsection{Zwischenspeicher-FF}
 \begin{center}
-    \begin{minipage}[c]{0.4\linewidth}
-        \includegraphics[width = 23mm]{images/zs_ff.jpeg}
+    \begin{minipage}[c]{0.35\linewidth}
+        \begin{circuit}
+            \node[jkFf, flipflop def ={t6={$\urcorner$}, t4={$\urcorner$}}] (jkff) {};
+            \path[draw] (jkff.pin 1) --++(180:0.4) node[fill=white] {\cirin{J}};
+            \path[draw] (jkff.pin 2) --++(180:0.4) node[fill=white] {\cirin{CLK}};
+            \path[draw] (jkff.pin 3) --++(180:0.4) node[fill=white] {\cirin{K}};
+            \path[draw] (jkff.pin 6) --++(0:0.4) node[fill=white] {\cirout{Q}};
+            \path[draw] (jkff.pin 4) --++(0:0.4) node[fill=white] {\ciroutn{Q}};
+        \end{circuit}
     \end{minipage}
     \hfill
-    \begin{minipage}[c]{0.55\linewidth}
-        \includegraphics[width = 35mm]{images/zs_ff_cir.jpeg}
+    \begin{minipage}[c]{0.6\linewidth}
+        \begin{circuit}
+            \node[jkFf] (jkff1) {};
+            \node[jkFf, right = of jkff1, flipflop def = {n2=1}] (jkff2) {};
+
+            \path[draw] (jkff1.pin 1) --++(180:0.4) node[fill=white] {\cirin{J}};
+            \path[draw] (jkff1.pin 2) --++(180:0.6) node[fill=white] {\cirin{CLK}};
+            \path[draw] (jkff1.pin 3) --++(180:0.4) node[fill=white] {\cirin{K}};
+            \path[draw] (jkff2.pin 6) --++(0:0.4) node[fill=white] {\cirout{Q}};
+            \path[draw] (jkff2.pin 4) --++(0:0.4) node[fill=white] {\ciroutn{Q}};
+
+            \begin{pgfonlayer}{tl1}
+                \node[circ] at ($(clk)!0.8!(jkff1.pin 2)$) (nex1) {};
+            \end{pgfonlayer}
+            \draw (jkff1.pin 6) -- (jkff2.pin 1);
+            \draw (jkff1.pin 4) -- (jkff2.pin 3);
+            \draw (nex1) --++(270:0.7) --++ (0:1.6) |- (jkff2-N2.west);
+
+            \node[label={[label distance = -1mm, font = \footnotesize] 90:$Q_i$}] at ($(jkff1.pin 6)!0.3!(jkff2.pin 1)$) {};
+            \node[label={[label distance = -1mm, font = \footnotesize] 90:$\overline{Q_i}$}] at ($(jkff1.pin 4)!0.3!(jkff2.pin 3)$) {};
+        \end{circuit}
     \end{minipage}
 \end{center}
 FlipFlop, dass Input bei steigender Taktflanke übernimmt und bei der nächsten fallenden Taktflanke ausgibt. (oder umgekehrte Flanken)
@@ -483,7 +661,50 @@ FlipFlop, dass Input bei steigender Taktflanke übernimmt und bei der nächsten 
 
 \subsubsection{Frequenzteiler und Zähler}
 \begin{center}
-    \includegraphics[width = 65mm]{images/counter.jpeg}
+    \begin{minipage}{0.55\linewidth}
+        \begin{circuit}[0.25]
+            \ctikzset{multipoles/flipflop/clock wedge size=0.5}
+            \node[tFfmin] (t1) {};
+            \node[tFfmin, right = 6mm of t1] (t2) {};
+            \node[tFfmin, right = 6mm of t2] (t3) {};
+        
+            \node[font = \footnotesize, left = 0.9mm of t1.pin 2] (clk) {\cirin{CLK}}; 
+        
+            \begin{pgfonlayer}{tl1}
+                \node[circ] (nex1) at ($(t1.pin 6)!0.5!(t2.pin 1)$) {};
+                \node[circ] (nex2) at ($(t2.pin 6)!0.5!(t3.pin 1)$) {};
+            \end{pgfonlayer}
+            \node[above = 4mm of nex1, font = \footnotesize] (lsb) {\cemph[secondaryheader]{LSB}};
+            \node[above = 4.5mm of t3.pin 6, font = \footnotesize] (msb) {\cemph[secondaryheader]{MSB}};
+        
+            \draw (clk) -- (t1.pin 2);
+            \draw (t1.pin 6) -- (nex1) |- (t2.pin 2);
+            \draw (t2.pin 6) -- (nex2) |- (t3.pin 2);
+            \path[draw] (nex1) -- (lsb) node[midway, left, font = \footnotesize] {$Q_1$}; 
+            \path[draw] (nex2) --++ (90:0.45) node[midway, left, font = \footnotesize] {$Q_2$}; 
+            \path[draw] (t3.pin 6) -- (msb) node[midway, right, font = \footnotesize] {$Q_3$}; 
+        \end{circuit}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \coordinate[label = {[font = \footnotesize]180:\cirin{CLK}}](clk) at (0,0.5);
+                \coordinate[label = {[font = \footnotesize]180:$Q_1$}](q1) at (0,0);
+                \coordinate[label = {[font = \footnotesize]180:$Q_2$}](q2) at (0,-0.5);
+
+                \draw[thick] (clk) --++(0:0.4) --++(90:0.2) coordinate(f1t) --++(0:0.4) --++(270:0.2) --++(0:0.4) --++(90:0.2) coordinate(f2t) --++(0:0.4) --++(270:0.2) --++(0:0.4) --++(90:0.2)coordinate(f3t) --++(0:0.05);
+                \draw[thick] (q1) --++(0:0.4) --++(90:0.2) --++(0:0.8) --++(270:0.2)coordinate(f2b) --++(0:0.8) --++(90:0.2) --++(0:0.05);
+                \draw[thick] (q2) --++(0:0.4) coordinate(f1b) --++(90:0.2) --++(0:1.6) --++(270:0.2)coordinate(f3b) --++(0:0.05);
+
+                \begin{pgfonlayer}{tl1}
+                    \draw[thick, dashed, red] (f1t) -- (f1b);
+                    \draw[thick, dashed, red] (f2t) -- (f2b);
+                    \draw[thick, dashed, red] (f3t) -- (f3b);
+                \end{pgfonlayer}
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
 \end{center}
 Kaskadieren von T-Flipflops führt zu einer Frequenzreduktion von CLK um Faktor 2.\\
 Kann als Bitzähler verwendet werden (ohne CLK). MSB ist längste Frequenz. $n_{T,ff} \rightarrow 0\dots (2^n -1)$
