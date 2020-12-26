@@ -581,7 +581,7 @@ TG sperrt wenn Widerstand hochohmig ist. ($\text{T}=0$)
             \begin{tikzpicture}
                 \begin{pgfonlayer}{bg}
                     \node[draw, thick, minimum height = 10mm, minimum width = 7mm] at(0,0) (base) {};
-                    \draw[thick] ($(base.170) +(0.01, 0)$) -- ($(base.180) + (0.1,0)$) -- ($(base.190) +(0.01, 0)$);
+                    \draw[] ($(base.170) +(0.01, 0)$) -- ($(base.180) + (0.1,0)$) -- ($(base.190) +(0.01, 0)$);
                     \node[point] (not) at ($(base.320) + (0.05,0)$) {};
                 \end{pgfonlayer}
                 \coordinate[label={[font = \footnotesize, label distance = 0mm]0:1D}] (d) at(base.140);  
