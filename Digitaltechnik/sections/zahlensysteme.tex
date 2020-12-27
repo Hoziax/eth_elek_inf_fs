@@ -79,6 +79,7 @@ $K_i$: Koeffizienten für Zahlensystem. Erste Operation gibt \emph{MSB}, letze O
 Ist die Blocklänge länger als Zahl, vorangehende $0$(-en) miteinbeziehen.
 \subsubsection{\twocom Komplement zu Dezimal}
 \begin{equation*}
+    \displaystyle
     D_{(10)} = - b_{n-1} \cdot 2^{n-1} + \sum_{i = 0}^{n-2} b_i \cdot 2^i
 \end{equation*}
 Wertebereich \twocom-Komp. $\left[-2^{n-1}, 2^{n-1} -1\right]$
@@ -133,15 +134,15 @@ Sign-Bit muss nur einmal vor dem $m$ codiert werden.
 \end{center}
 \subsubsection{Multiplikation}
 \begin{center}
-    \begin{minipage}{0.70\linewidth}
-        \begin{itemize}
+    \begin{minipage}[t]{0.70\linewidth}
+        \begin{enumerate}
             \item Bitweise Multiplikation des Multiplikanden $a$ mit $b_i$ des Multiplikator.
             \item Sukzessive Multiplikationen werden um ein Bit ($0$) nach links verschoben.
             \item Anzahl Nachkommabits ergibt sich aus der Summe der Anzahl Nachk.bits der Operatoren.
-        \end{itemize}
+        \end{enumerate}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.25\linewidth}
+    \begin{minipage}[t]{0.25\linewidth}
         \begin{align*}
             b_0 \cdot a&\\
             +b_1 \cdot a~0\\
@@ -153,8 +154,45 @@ Sign-Bit muss nur einmal vor dem $m$ codiert werden.
     \end{minipage}
 \end{center}
 \subsubsection{Division}
-\begin{enumerate}
-    \item Identifiziere Teil des Divident $>$ Divisor (Unterblock). Für jede Stelle, sodass Divident $<$ Divisor, 0 in Quotient.
-    \item Unterblock $-$ Divisor, 1 an Quotient anhängen, Rest behalten.
-    \item An das Resultat der Subtraktion Bits des Dividenten anhängen. Wiederholen bis Subtraktion 0 ergibt.
-\end{enumerate}
+% \begin{wraptable}{r}{0.48\linewidth}
+%     \setlength{\tabcolsep}{0.5mm}
+%     \footnotesize
+%     \begin{tabular}{rcc|l}
+%         \multicolumn{4}{c}{${\color{darkgreen}11100}:0111 = {\color{blue}0100}$}\\
+%       \hline
+%       ${\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R=1$\\
+%       $\underline{1}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R=11$\\
+%       $\underline{11}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}1}$ & $R=000$\\
+%       $\underline{000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R=0000$\\
+%       $\underline{0000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R=00000$\\
+%     \end{tabular}
+% \end{wraptable}
+% Identifiziere Teil des Divident $>$ Divisor (Unterblock). Für jede Stelle, sodass Divident $<$ Divisor, 0 in Quotient.\\
+% Unterblock $-$ Divisor, 1 an Quotient anhängen, Rest behalten.\\
+% An das Resultat der Subtraktion Bits des Dividenten anhängen. Wiederholen bis Subtraktion 0 ergibt.
+
+\begin{center}
+    \begin{minipage}{0.7\linewidth}
+        \begin{enumerate}
+            \item Identifiziere Teil des Divident $>$ Divisor (Unterblock). Für jede Stelle, sodass Divident $<$ Divisor, 0 in Quotient.
+            \item Unterblock $-$ Divisor, 1 an Quotient anhängen, Rest behalten.
+            \item An das Resultat der Subtraktion Bits des Dividenten anhängen. Wiederholen bis Subtraktion 0 ergibt.
+        \end{enumerate}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.25\linewidth}
+        \begin{adjustbox}{angle=90}
+            \setlength{\tabcolsep}{0.3mm}
+            \footnotesize
+            \begin{tabular}{rcc|l}
+                \multicolumn{4}{c}{${\color{darkgreen}11100}:0111 = {\color{blue}0100}$}\\
+              \hline
+              ${\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R=1$\\
+              $\underline{1}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R=11$\\
+              $\underline{11}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}1}$ & $R=000$\\
+              $\underline{000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R=0000$\\
+              $\underline{0000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R=00000$\\
+            \end{tabular}
+        \end{adjustbox}
+    \end{minipage}
+\end{center}

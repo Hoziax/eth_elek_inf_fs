@@ -23,11 +23,11 @@
     \end{minipage}
 \end{center}
 \subsection{Latches}
-Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störimpulsen} empfindlich, da bei $\text{T}=1$ jede Änderung übernommen wird.
+Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störimpulsen} empfindlich, da bei $\text{T}=1$ jede Änderung 
 \subsubsection{SR-Latch}
 \begin{center}
     \begin{minipage}[c]{0.4\linewidth}
-        \begin{circuit}
+        \begin{circuit}[0.35]
             \node[srLatch] (srlatch) {};
             \path[draw] (srlatch.pin 1) --++(180:0.4) node[fill = white] {\cirin{S}};
             \path[draw] (srlatch.pin 3) --++(180:0.4) node[fill = white] {\cirin{R}};
@@ -39,7 +39,7 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
     \begin{minipage}[c]{0.55\linewidth}
         \begin{circuit}
             \node[nor port] (nor1) {};
-            \node[nor port, below = 4mm of nor1] (nor2) {};
+            \node[nor port, below = 3mm of nor1] (nor2) {};
 
             \path[draw] (nor1.in 1) --++(180:0.6) node[fill = white] {\cirin{S}};
             \path[draw] (nor2.in 2) --++(180:0.6) node[fill = white] {\cirin{R}};
@@ -47,8 +47,8 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
             \node[circ, right = 3mm of nor1.out] (nex1) {};
             \node[circ, right = 3mm of nor2.out] (nex2) {};
 
-            \draw (nor1.out) -- (nex1) --++(270:0.3) -- ($(nor2.in 1) + (0, 0.25)$) -- (nor2.in 1);
-            \draw (nor2.out) -- (nex2) --++(90:0.3) -- ($(nor1.in 2) - (0, 0.25)$) -- (nor1.in 2);
+            \draw (nor1.out) -- (nex1) --++(270:0.3) -- ($(nor2.in 1) + (0, 0.2)$) -- (nor2.in 1);
+            \draw (nor2.out) -- (nex2) --++(90:0.3) -- ($(nor1.in 2) - (0, 0.2)$) -- (nor1.in 2);
 
             \node[right = 12mm of nor1.out] (q) {\cirout{Q}};
             \node[right = 12mm of nor2.out] (notq) {\ciroutn{Q}};
@@ -80,7 +80,7 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
 \subsubsection{SRT-Latch}
 \begin{center}
     \begin{minipage}[c]{0.4\linewidth}
-        \begin{circuit}
+        \begin{circuit}[0.35]
             \node[srtLatch] (srtlatch) {};
             \path[draw] (srtlatch.pin 1) --++(180:0.4) node[fill = white] {\cirin{S}};
             \path[draw] (srtlatch.pin 2) --++(180:0.4) node[fill = white] {\cirin{T}};
@@ -91,10 +91,10 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.55\linewidth}
-        \begin{circuit}
-            \node[and port] (and1) at (0, 0.5) {};
-            \node[and port] (and2) at (0, -0.5) {};
+        \begin{circuit}[0.35]
             \node[srLatch] (srlatch) at (1.1,0) {};
+            \node[and port, left = 5mm of srlatch.pin 1] (and1) {};
+            \node[and port, left = 5mm of srlatch.pin 3] (and2) {};
 
             \node[left = 4mm of and1.in 1] (sin) {\cirin{S}};
             \node[left = 4mm of and2.in 2] (rin) {\cirin{S}};
@@ -110,8 +110,8 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
             \draw(srlatch.pin 6) -- (q);
             \draw(srlatch.pin 4) -- (notq);
 
-            \draw[] (and1.out) --++(0:0.2) node[label={[label distance = -2mm, font = \small]20:$\text{S}_{\text{int}}$}]{} |- (srlatch.pin 1);
-            \draw[] (and2.out) --++(0:0.2) node[label={[label distance = -2mm, font = \small]340:$\text{R}_{\text{int}}$}]{} |- (srlatch.pin 3);
+            \draw[] (and1.out) -- (srlatch.pin 1) node[midway, label={[label distance = -1mm, font = \small]90:$\text{S}_{\text{int}}$}]{};
+            \draw[] (and2.out) -- (srlatch.pin 3) node[midway, label={[label distance = -1mm, font = \small]270:$\text{R}_{\text{int}}$}]{};
         \end{circuit}
     \end{minipage}
 \end{center}
@@ -127,7 +127,7 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
 \subsubsection{D-Latch}
 \begin{center}
     \begin{minipage}[c]{0.4\linewidth}
-        \begin{circuit}
+        \begin{circuit}[0.35]
             \node[dLatch] (dlatch) {};
             \path[draw] (dlatch.pin 1) --++(180:0.4) node[fill = white] {\cirin{D}};
             \path[draw] (dlatch.pin 2) --++(180:0.4) node[fill = white] {\cirin{T}};
@@ -137,7 +137,7 @@ Alle taktzustandgesteurte Schaltungen sind gegenüber \cemph[burntorange]{Störi
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.55\linewidth}
-        \begin{circuit}
+        \begin{circuit}[0.35]
             \node[srtLatch] (srtlatch) {};
 
             \node[left = 14mm of srtlatch.pin 1] (din) {\cirin{D}};
@@ -171,13 +171,13 @@ Bauelement, das Daten für die Periodendauer eines Taktes speichern kann.
 \begin{center}
     \begin{tikzpicture}
         \begin{pgfonlayer}{bg}
-            \fill[red!30] (0,0) rectangle (1, -0.5);
-            \fill[darkgreen!30] (1,0) rectangle (2, -0.5);
+            \fill[red!30] (0,0) rectangle (0.8, -0.3);
+            \fill[darkgreen!30] (0.8,0) rectangle (1.6, -0.3);
         \end{pgfonlayer}
-        \draw[thick] (-1, -0.5) -- (0, -0.5) -- (0,0) -- (1, 0) -- (1, -0.5) -- (2, -0.5) -- (2,0) -- (3, 0);
+        \draw[thick] (-0.8, -0.3) -- (0, -0.3) -- (0,0) -- (0.8, 0) -- (0.8, -0.3) -- (1.6, -0.3) -- (1.6,0) -- (2.4, 0);
         \begin{pgfonlayer}{tl1}
-            \node[draw = red] (t1) at (-1, 0.5) {\small D-Latch transparent};
-            \node[draw = darkgreen] (t2) at (2.5, 0.5) {\small letzter Zustand gespeichert};
+            \node[font = \footnotesize, draw = red] (t1) at (-1, 0.4) {D-Latch transparent};
+            \node[font = \footnotesize, draw = darkgreen] (t2) at (2.5, 0.4) {letzter Zustand gespeichert};
         \end{pgfonlayer}
         \draw[red] (t1) -- (0.5, 0);
         \draw[darkgreen] (t2) -- (1.5, 0);
@@ -331,7 +331,6 @@ Bauelement, das Daten für die Periodendauer eines Taktes speichern kann.
     \hfill
     \begin{minipage}[c]{0.65\linewidth}
         \begin{circuit}
-            \ctikzset{tripoles/european and port/height=0.3}
             \node[srFf] (srff) {};
 
             \node[and port, left = 3mm of srff.pin 1] (and1) {};
@@ -613,7 +612,13 @@ TG sperrt wenn Widerstand hochohmig ist. ($\text{T}=0$)
     T_{\text{min}} \geq t_{\text{pd}1} + t_{\text{pd,ks}} + t_{\text{s}2} \qquad f_{\text{max}} = \frac{1}{T_{\text{min}}}
 \end{equation*}
 $t_h$ kann bei der Berechnung von $f_{\text{max}}$ vernachlässigt werden.\\
-Es wird der längste PFad zwischen zwei FlipFlops betrachtet.
+Es wird der längste Pfad zwischen zwei FlipFlops betrachtet.\\
+\cemph[black]{Fehlfunktionen beim Wechsel des Eingagnssignals}
+\begin{tabular}{l l l l}
+    vor & \multirow{2}{*}{aktiver Taktfl.} & längster & \multirow{2}{*}{Pfad zw. FF}\\
+    \cline{1-1} \cline{3-3}
+    nach & & kürzester & 
+\end{tabular}
 
 \subsubsection{Zwischenspeicher-FF}
 \begin{center}

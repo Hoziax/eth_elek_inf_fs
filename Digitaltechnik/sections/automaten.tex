@@ -42,7 +42,7 @@ Bei synchronen Automaten besitzen alle Speicherelemente (FlipFlops) den gleichen
                 
                 \path[draw, ->] (transFunc.\mrA) -- ($(transFunc.\mrA) + (0.2,0)$) -- ($(store.\mrA) + (0.2,0)$) node[midway, right] {$Z_{n+1}$} -- (store.\mrA);
 
-                \path[draw, ->, blue] (store.\ulA) -- ($(store.\ulA) - (0.2,0)$) node[left, black] {$Z_n$} -- ($(transFunc.\llA) - (0.2,0)$) -- (transFunc.\llA); 
+                \path[draw, ->, blue] (store.\ulA) -- ($(store.\ulA) - (0.2,0)$) -- ($(transFunc.\llA) - (0.2,0)$) node[midway, left, black] {$Z_n$} -- (transFunc.\llA); 
                 \path[draw, ->, blue] ($(transFunc.\llA) - (0.2,0)$) -- ($(outputFunc.\llA) - (0.2,0)$) -- (outputFunc.\llA);
 
                 \node[left = 4mm of outputFunc.\ulA] (input) {\small $X_n$};
