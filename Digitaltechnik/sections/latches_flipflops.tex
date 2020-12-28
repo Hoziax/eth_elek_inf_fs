@@ -411,7 +411,7 @@ Bei $\text{J}=\text{K}=1$ wechselt Output. (toggel)
 \begin{center}
     \begin{minipage}[t]{0.3\linewidth}
         \begin{flushleft}
-            BS V1
+            \cemph[black]{BS V1}
         \end{flushleft}
         \begin{circuit}[0.3]
             \ctikzset{multipoles/flipflop/font = \footnotesize}
@@ -434,7 +434,7 @@ Bei $\text{J}=\text{K}=1$ wechselt Output. (toggel)
     \hfill\vline\hfill
     \begin{minipage}[t]{0.3\linewidth}
         \begin{flushleft}
-            BS V1
+            \cemph[black]{BS V1}
         \end{flushleft}
         \begin{circuit}[0.3]
             \ctikzset{multipoles/flipflop/font = \footnotesize}
@@ -459,7 +459,7 @@ Bei $\text{J}=\text{K}=1$ wechselt Output. (toggel)
     \hfill\vline\hfill
     \begin{minipage}[t]{0.3\linewidth}
         \begin{flushleft}
-            BS V2
+            \cemph[black]{BS V2}
         \end{flushleft}
         \begin{circuit}[0.3]
             \ctikzset{multipoles/flipflop/font = \footnotesize}
@@ -615,7 +615,7 @@ $t_h$ kann bei der Berechnung von $f_{\text{max}}$ vernachlässigt werden.\\
 Es wird der längste Pfad zwischen zwei FlipFlops betrachtet.\\
 \cemph[black]{Fehlfunktionen beim Wechsel des Eingagnssignals}
 \begin{tabular}{l l l l}
-    vor & \multirow{2}{*}{aktiver Taktfl.} & längster & \multirow{2}{*}{Pfad zw. FF}\\
+    vor & \multirow{2}{*}{aktiver Taktfl:} & längster & \multirow{2}{*}{Pfad zw. FF}\\
     \cline{1-1} \cline{3-3}
     nach & & kürzester & 
 \end{tabular}
@@ -702,14 +702,14 @@ FlipFlop, dass Input bei steigender Taktflanke übernimmt und bei der nächsten 
                 \draw[thick] (q1) --++(0:0.4) --++(90:0.2) --++(0:0.8) --++(270:0.2)coordinate(f2b) --++(0:0.8) --++(90:0.2) --++(0:0.05);
                 \draw[thick] (q2) --++(0:0.4) coordinate(f1b) --++(90:0.2) --++(0:1.6) --++(270:0.2)coordinate(f3b) --++(0:0.05);
 
-                \begin{pgfonlayer}{tl1}
-                    \draw[thick, dashed, red] (f1t) -- (f1b);
-                    \draw[thick, dashed, red] (f2t) -- (f2b);
-                    \draw[thick, dashed, red] (f3t) -- (f3b);
+                \begin{pgfonlayer}{bg}
+                    \fill[red!50, rounded corners = 2pt] ($(f1t) +(-0.1,0.1)$) rectangle ($(f1b) + (0.1, -0.1)$);
+                    \fill[red!50, rounded corners = 2pt] ($(f2t) +(-0.1,0.1)$) rectangle ($(f2b) + (0.1, -0.1)$);
+                    \fill[red!50, rounded corners = 2pt] ($(f3t) +(-0.1,0.1)$) rectangle ($(f3b) + (0.1, -0.1)$);
                 \end{pgfonlayer}
             \end{tikzpicture}
         \end{center}
     \end{minipage}
 \end{center}
-Kaskadieren von T-Flipflops führt zu einer Frequenzreduktion von CLK um Faktor 2.\\
-Kann als Bitzähler verwendet werden (ohne CLK). MSB ist längste Frequenz. $n_{T,ff} \rightarrow 0\dots (2^n -1)$
+Kaskadieren von T-Flipflops führt zu einer Frequenzreduktion von CLK um Faktor 2.
+Kann als Bitzähler verwendet werden (ohne CLK). MSB ist längste Frequenz. $n_{T,ff} \rightarrow 0\dots (2^n -1) \qquad f_R = \frac{f_C}{2^n}$

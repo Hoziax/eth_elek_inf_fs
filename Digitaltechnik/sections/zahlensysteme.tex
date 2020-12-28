@@ -39,7 +39,7 @@ Darstellung $D$ in Basis $R$: $\dots b_2 b_1 b_0 . b_{-1} b_{-2} \dots _{R}$
 \end{align*}
 $K_i$: Koeffizienten für Zahlensystem. Erste Operation gibt \emph{MSB}, letze Operation gibt \emph{LSB} (aka von oben nach unten lesen).
 
-\subsubsection{Dezimal zu Binär}
+\subsubsection{Binär zu Dezimal}
 \begin{center}
     \begin{tabular}{c|c|c|c|c|c|c|c}
         $2^7$ & $2^6$ & $2^5$ & $2^4$ & $2^3$ & $2^2$ & $2^1$ & $2^0$\\
@@ -154,22 +154,6 @@ Sign-Bit muss nur einmal vor dem $m$ codiert werden.
     \end{minipage}
 \end{center}
 \subsubsection{Division}
-% \begin{wraptable}{r}{0.48\linewidth}
-%     \setlength{\tabcolsep}{0.5mm}
-%     \footnotesize
-%     \begin{tabular}{rcc|l}
-%         \multicolumn{4}{c}{${\color{darkgreen}11100}:0111 = {\color{blue}0100}$}\\
-%       \hline
-%       ${\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R=1$\\
-%       $\underline{1}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R=11$\\
-%       $\underline{11}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}1}$ & $R=000$\\
-%       $\underline{000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R=0000$\\
-%       $\underline{0000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R=00000$\\
-%     \end{tabular}
-% \end{wraptable}
-% Identifiziere Teil des Divident $>$ Divisor (Unterblock). Für jede Stelle, sodass Divident $<$ Divisor, 0 in Quotient.\\
-% Unterblock $-$ Divisor, 1 an Quotient anhängen, Rest behalten.\\
-% An das Resultat der Subtraktion Bits des Dividenten anhängen. Wiederholen bis Subtraktion 0 ergibt.
 
 \begin{center}
     \begin{minipage}{0.7\linewidth}
@@ -187,11 +171,11 @@ Sign-Bit muss nur einmal vor dem $m$ codiert werden.
             \begin{tabular}{rcc|l}
                 \multicolumn{4}{c}{${\color{darkgreen}11100}:0111 = {\color{blue}0100}$}\\
               \hline
-              ${\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R=1$\\
-              $\underline{1}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R=11$\\
-              $\underline{11}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}1}$ & $R=000$\\
-              $\underline{000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R=0000$\\
-              $\underline{0000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R=00000$\\
+              ${\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R={\color{pastelviolet!50!red} 1}$\\
+              ${\color{pastelviolet!50!red} 1}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}0}$ & $R={\color{pastelviolet!50!red}11}$\\
+              ${\color{pastelviolet!50!red} 11}{\color{darkgreen}1}$ & \% & $111 = {\color{blue}1}$ & $R={\color{pastelviolet!50!red}000}$\\
+              ${\color{pastelviolet!50!red} 000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R={\color{pastelviolet!50!red}0000}$\\
+              ${\color{pastelviolet!50!red} 0000}{\color{darkgreen}0}$ & \% & $111 = {\color{blue}0}$ & $R={\color{pastelviolet!50!red}00000}$\\
             \end{tabular}
         \end{adjustbox}
     \end{minipage}
