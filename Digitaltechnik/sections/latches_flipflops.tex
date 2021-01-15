@@ -679,15 +679,16 @@ FlipFlop, dass Input bei steigender Taktflanke übernimmt und bei der nächsten 
                 \node[circ] (nex1) at ($(t1.pin 6)!0.5!(t2.pin 1)$) {};
                 \node[circ] (nex2) at ($(t2.pin 6)!0.5!(t3.pin 1)$) {};
             \end{pgfonlayer}
-            \node[above = 4mm of nex1, font = \footnotesize] (lsb) {\cemph[secondaryheader]{LSB}};
-            \node[above = 4.5mm of t3.pin 6, font = \footnotesize] (msb) {\cemph[secondaryheader]{MSB}};
+            \node[above = 4mm of nex1, font = \footnotesize] (q0) {$Q_0$};
+            \node[above = 4mm of nex2, font = \footnotesize] (q1) {$Q_1$};
+            \node[above = 4.5mm of t3.pin 6, font = \footnotesize] (q2) {$Q_2$};
         
             \draw (clk) -- (t1.pin 2);
             \draw (t1.pin 6) -- (nex1) |- (t2.pin 2);
             \draw (t2.pin 6) -- (nex2) |- (t3.pin 2);
-            \path[draw] (nex1) -- (lsb) node[midway, left, font = \footnotesize] {$Q_1$}; 
-            \path[draw] (nex2) --++ (90:0.45) node[midway, left, font = \footnotesize] {$Q_2$}; 
-            \path[draw] (t3.pin 6) -- (msb) node[midway, right, font = \footnotesize] {$Q_3$}; 
+            \draw (nex2) -- (q1);
+            \path[draw] (nex1) -- (q0) node[midway, left, font = \footnotesize] {\cemph[secondaryheader]{LSB}};  
+            \path[draw] (t3.pin 6) -- (q2) node[midway, right, font = \footnotesize] {\cemph[secondaryheader]{MSB}}; 
         \end{circuit}
     \end{minipage}
     \hfill
@@ -695,8 +696,8 @@ FlipFlop, dass Input bei steigender Taktflanke übernimmt und bei der nächsten 
         \begin{center}
             \begin{tikzpicture}
                 \coordinate[label = {[font = \footnotesize]180:\cirin{CLK}}](clk) at (0,0.5);
-                \coordinate[label = {[font = \footnotesize]180:$Q_1$}](q1) at (0,0);
-                \coordinate[label = {[font = \footnotesize]180:$Q_2$}](q2) at (0,-0.5);
+                \coordinate[label = {[font = \footnotesize]180:$Q_0$}](q1) at (0,0);
+                \coordinate[label = {[font = \footnotesize]180:$Q_1$}](q2) at (0,-0.5);
 
                 \draw[thick] (clk) --++(0:0.4) --++(90:0.2) coordinate(f1t) --++(0:0.4) --++(270:0.2) --++(0:0.4) --++(90:0.2) coordinate(f2t) --++(0:0.4) --++(270:0.2) --++(0:0.4) --++(90:0.2)coordinate(f3t) --++(0:0.05);
                 \draw[thick] (q1) --++(0:0.4) --++(90:0.2) --++(0:0.8) --++(270:0.2)coordinate(f2b) --++(0:0.8) --++(90:0.2) --++(0:0.05);
