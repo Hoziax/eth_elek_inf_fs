@@ -1,4 +1,46 @@
-\section{Schieberegister}
+\section{Speicher}
+\subsection{Schieberegister}
+\begin{circuit}[0.35]
+    \node[dFf] (dff0) {};
+    \node[dFf, right = 7mm of dff0] (dff1) {};
+    \node[dFf, right = 7mm of dff1] (dff2) {};
+    \node[dFf, right = 7mm of dff2] (dff3) {};
+
+    \node[left = 5mm of dff0.pin 1] (din) {\cirin{D}$_{\text{in}}$};
+    \node[below left = 0.5mm and 5mm of dff0] (clk) {\cirin{CLK}};
+
+    \draw[] (din) -- (dff0.pin 1);
+    \path[draw] (dff0.pin 6) -- (dff1.pin 1) coordinate[midway] (q0);
+    \path[draw] (dff1.pin 6) -- (dff2.pin 1) coordinate[midway] (q1);
+    \path[draw] (dff2.pin 6) -- (dff3.pin 1) coordinate[midway] (q2);
+    \path[draw] (dff3.pin 6) --++ (right:2mm) coordinate[] (q3);
+
+    \begin{pgfonlayer}{tl1}
+        \node[circ, below = 6.2mm of dff0.pin 2] (clkn0) {};
+        \node[circ, below = 6.2mm of dff1.pin 2] (clkn1) {};
+        \node[circ, below = 6.2mm of dff2.pin 2] (clkn2) {};        
+        \node[circ] (qn0) at(q0) {};
+        \node[circ] (qn1) at(q1) {};
+        \node[circ] (qn2) at(q2) {};
+        %\node[circ] (qn3) at(q3) {};
+    \end{pgfonlayer}
+
+    \draw[] (clk) -- (clkn0) -- (clkn1) -- (clkn2) -| (dff3.pin 2);
+    \draw[] (clkn0) -| (dff0.pin 2);
+    \draw[] (clkn1) -| (dff1.pin 2);
+    \draw[] (clkn2) -| (dff2.pin 2);
+
+    \path[draw] (q0) --++(90:8mm) node[midway, left] {\cemph[secondaryheader]{LSB}} node[fill = white] {$Q_0$};
+    \path[draw] (q1) --++(90:8mm) node[fill = white] {$Q_1$};
+    \path[draw] (q2) --++(90:8mm) node[fill = white] {$Q_2$};
+    \path[draw] (q3) --++(90:8mm) node[midway, right] {\cemph[secondaryheader]{MSB}} node[fill = white] {$Q_3$};
+\end{circuit}
+$n$ Flipflops
+\begin{itemize}
+    \item $n$ Bits gespeichert
+    \item $n$ Taktflanken zum einlesen
+\end{itemize}
+Nachteil: Teuer und Platzintensiv
 \subsection{SRAM}
 \begin{center}
     \begin{minipage}{0.45\linewidth}
